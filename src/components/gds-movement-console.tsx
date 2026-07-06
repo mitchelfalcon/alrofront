@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
   GitBranch, Activity, Users, Link2, Cpu,
-  ChevronDown, ChevronRight, X, Navigation, Waypoints, Workflow,
+  ChevronDown, ChevronRight, X, Navigation, Waypoints, Workflow, Network,
 } from "lucide-react";
 
 // ─── Types ─────────────────────────────────────────────────────────────────
@@ -281,8 +281,8 @@ const FormulaOverlay: React.FC<{
   const G = getGStyles(darkMode);
 
   const textPrimary = darkMode ? "#0f172a" : "#0d1f1a";
-  const textMuted = darkMode ? "#5b7290" : "#7a9a8d";
-  const textMutedDark = darkMode ? "#334155" : "#4a7268";
+  const textMuted = "#5b7290";
+  const textMutedDark = darkMode ? "#334155" : "#1e3a8a";
 
   return (
     <motion.div
@@ -464,11 +464,15 @@ export function GdsMovementConsole({
   darkMode,
   openSection: externalOpenSection,
   setOpenSection: externalSetOpenSection,
+  showNetworkCanvas,
+  setShowNetworkCanvas,
 }: { 
   activeNode: string | null; 
   darkMode?: boolean;
   openSection?: string | null;
   setOpenSection?: (s: string | null) => void;
+  showNetworkCanvas?: boolean;
+  setShowNetworkCanvas?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const G = getGStyles(darkMode);
   const [localOpenSection, setLocalOpenSection] = useState<string | null>(null);
@@ -479,8 +483,8 @@ export function GdsMovementConsole({
   const [showFormula, setShowFormula] = useState(false);
 
   const textPrimary = darkMode ? "#0f172a" : "#0d1f1a";
-  const textMuted = darkMode ? "#5b7290" : "#7a9a8d";
-  const iconColor = darkMode ? "#2563eb" : "#10b981";
+  const textMuted = "#5b7290";
+  const iconColor = "#2563eb";
   
   const shadowActive = darkMode 
     ? "inset 3px 3px 6px rgba(165,185,210,0.35), inset -3px -3px 6px rgba(255,255,255,0.9)" 
@@ -614,41 +618,66 @@ export function GdsMovementConsole({
 
             {/* Separator */}
             <div className="w-px h-5 flex-shrink-0"
-              style={{ background: `linear-gradient(to bottom, ${darkMode ? "rgba(37,99,235,0.2)" : "rgba(16,185,129,0.2)"}, transparent)` }} />
+              style={{ background: `linear-gradient(to bottom, ${darkMode ? "rgba(37,99,235,0.2)" : "rgba(37,99,235,0.2)"}, transparent)` }} />
 
             {/* Algorithm section tabs */}
-            <div className="flex items-center gap-1.5 flex-1 overflow-x-auto">
-              {GDS_SECTIONS.map(section => {
-                const { Icon } = section;
-                const isOpen = openSection === section.id;
-                return (
-                  <motion.button
-                    key={section.id}
-                    onClick={() => handleSectionToggle(section.id)}
-                    className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl flex-shrink-0"
-                    style={{
-                      ...G.card,
-                      boxShadow: isOpen
-                        ? `${shadowActive}, 0 0 0 1.5px ${section.color}33`
-                        : G.card.boxShadow,
-                      transition: "all 0.18s",
-                    }}
-                    whileHover={{ scale: 1.04 }}
-                    whileTap={{ scale: 0.96 }}
-                  >
-                    <Icon className="w-3 h-3 flex-shrink-0"
-                      style={{ color: isOpen ? section.color : textMuted }} />
-                    <span className="text-[10px] font-semibold whitespace-nowrap"
-                      style={{ color: isOpen ? section.color : textMuted }}>
-                      {section.short}
-                    </span>
-                    <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.18 }}>
-                      <ChevronDown className="w-2.5 h-2.5"
-                        style={{ color: isOpen ? section.color : (darkMode ? "rgba(165,185,210,0.5)" : "#bdc9c4") }} />
-                    </motion.div>
-                  </motion.button>
-                );
-              })}
+            <div className="flex items-center gap-1.5 flex-1 overflow-x-auto justify-between">
+              <div className="flex items-center gap-1.5 overflow-x-auto">
+                {GDS_SECTIONS.map(section => {
+                  const { Icon } = section;
+                  const isOpen = openSection === section.id;
+                  return (
+                    <motion.button
+                      key={section.id}
+                      onClick={() => handleSectionToggle(section.id)}
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl flex-shrink-0"
+                      style={{
+                        ...G.card,
+                        boxShadow: isOpen
+                          ? `${shadowActive}, 0 0 0 1.5px ${section.color}33`
+                          : G.card.boxShadow,
+                        transition: "all 0.18s",
+                      }}
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.96 }}
+                    >
+                      <Icon className="w-3 h-3 flex-shrink-0"
+                        style={{ color: isOpen ? section.color : textMuted }} />
+                      <span className="text-[10px] font-semibold whitespace-nowrap"
+                        style={{ color: isOpen ? section.color : textMuted }}>
+                        {section.short}
+                      </span>
+                      <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.18 }}>
+                        <ChevronDown className="w-2.5 h-2.5"
+                          style={{ color: isOpen ? section.color : (darkMode ? "rgba(165,185,210,0.5)" : "#bdc9c4") }} />
+                      </motion.div>
+                    </motion.button>
+                  );
+                })}
+              </div>
+
+              {/* Neo Aura 4J Live Network Toggle Button */}
+              {setShowNetworkCanvas && (
+                <motion.button
+                  onClick={() => setShowNetworkCanvas(p => !p)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl flex-shrink-0 font-bold border transition-all duration-200"
+                  style={{
+                    ...G.card,
+                    background: showNetworkCanvas ? "rgba(37, 99, 235, 0.12)" : G.card.background,
+                    borderColor: showNetworkCanvas ? "rgba(37, 99, 235, 0.45)" : "rgba(37, 99, 235, 0.15)",
+                    boxShadow: showNetworkCanvas ? shadowActive : G.card.boxShadow,
+                  }}
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.96 }}
+                >
+                  <Network className={`w-3.5 h-3.5 flex-shrink-0 ${showNetworkCanvas ? "animate-pulse" : ""}`}
+                    style={{ color: showNetworkCanvas ? "#2563eb" : "#10b981" }} />
+                  <span className="text-[10px] uppercase tracking-wider font-semibold"
+                    style={{ color: showNetworkCanvas ? "#1e3a8a" : "#1e3a8a" }}>
+                    {showNetworkCanvas ? "▲ Ocultar Red" : "▼ Neo Aura 4J"}
+                  </span>
+                </motion.button>
+              )}
             </div>
 
           </div>
@@ -669,7 +698,7 @@ export function GdsMovementConsole({
                 >
                   {/* Separator */}
                   <div className="mx-4"
-                    style={{ height: "1px", background: `linear-gradient(to right, ${section.color}22, ${darkMode ? "rgba(37,99,235,0.08)" : "rgba(16,185,129,0.08)"}, transparent)` }} />
+                    style={{ height: "1px", background: `linear-gradient(to right, ${section.color}22, ${darkMode ? "rgba(37,99,235,0.08)" : "rgba(37,99,235,0.08)"}, transparent)` }} />
 
                   <div className="px-4 py-3">
                     <div className="flex items-center gap-2 mb-2.5">

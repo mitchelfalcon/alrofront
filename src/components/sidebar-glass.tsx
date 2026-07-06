@@ -18,6 +18,10 @@ import {
   LogOut,
   Mic,
   Headphones,
+  MousePointer,
+  Plus,
+  GitBranch,
+  Play,
 } from "lucide-react";
 import { ARCHITECTURE_NODES, ArchitectureNode } from "../types";
 
@@ -36,7 +40,17 @@ interface SidebarProps {
   orgDepts: string[];
   selectedNode: ArchitectureNode;
   setSelectedNode: (node: ArchitectureNode) => void;
+  activeTool: string;
+  onToolChange: (tool: string) => void;
 }
+
+const AURA_NODES_LOCAL = [
+  { id: "facturacion", name: "Facturación", color: "#10b981" },
+  { id: "casos",       name: "Casos",       color: "#3b82f6" },
+  { id: "actividades", name: "Actividades", color: "#8b5cf6" },
+  { id: "ledger",      name: "Ledger",      color: "#f59e0b" },
+  { id: "voz",         name: "Voz",         color: "#06b6d4" },
+];
 
 export function SidebarGlass({
   activeSection,
@@ -53,16 +67,26 @@ export function SidebarGlass({
   orgDepts,
   selectedNode,
   setSelectedNode,
+  activeTool,
+  onToolChange,
 }: SidebarProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [isOperationalControlOpen, setIsOperationalControlOpen] = useState(true);
 
   const mainNav = [
-    { id: "dashboard", icon: Grid, label: "Dashboard / Workbench" },
     { id: "documents", icon: FileText, label: "Documents" },
     { id: "calendar", icon: Calendar, label: "Calendar / Schedule" },
     { id: "share", icon: Share2, label: "Share View" },
     { id: "history", icon: Clock, label: "History Logs" },
-    { id: "admin", icon: User, label: "Admin Panel" },
+  ];
+
+  const tools = [
+    { id: "cursor",   icon: MousePointer,  label: "Selección precisa" },
+    { id: "add-kpi",  icon: Plus,          label: "+KPI — Nueva Entidad" },
+    { id: "link",     icon: GitBranch,     label: "Enlazar Flujo" },
+    { id: "play",     icon: Play,          label: "Ejecutar / Recalcular Grafo" },
+    { id: "search",   icon: Search,        label: "Buscar KPIs / Incidencias" },
+    { id: "settings", icon: Settings,      label: "Umbrales · Confianza 94%" },
   ];
 
   const filteredNodes = ARCHITECTURE_NODES.filter(node =>
@@ -85,12 +109,38 @@ export function SidebarGlass({
           boxShadow: "8px 8px 24px rgba(174, 192, 208, 0.22), -8px -8px 24px rgba(255, 255, 255, 0.8), inset 1px 1px 3px rgba(255, 255, 255, 0.5)",
         }}
       >
-        {/* Top Section: Salesforce Cloud Logo (Styled perfectly with drop shadow) */}
-        <div className="flex flex-col items-center gap-1">
+        {/* Top Section: Salesforce Cloud Logo & Operational Control Block */}
+        <div className="flex flex-col items-center gap-4 w-full">
+          {/* Nube de Salesforce */}
           <div className="w-12 h-12 flex items-center justify-center relative">
             <svg className="w-8 h-8 text-[#009fdb] drop-shadow-[0_3px_6px_rgba(0,159,219,0.35)] fill-current" viewBox="0 0 24 24">
               <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z" />
             </svg>
+          </div>
+
+          {/* Bloque completo del Operational Control */}
+          <div className="flex flex-col items-center gap-2.5 w-full">
+            {/* Controlador de Interfaz (Botón Azul): único evento cerrar/ocultar menú, renderizado de 9 puntos (grid) */}
+            <motion.button
+              id="operational-control-toggle"
+              onClick={() => setIsOperationalControlOpen(!isOperationalControlOpen)}
+              className="w-11 h-11 rounded-2xl flex items-center justify-center relative transition-all duration-200 border bg-white cursor-pointer"
+              style={{
+                borderColor: "rgba(255,255,255,0.95)",
+                boxShadow: isOperationalControlOpen
+                  ? "inset 2px 2px 5px rgba(165,185,210,0.22), inset -2px -2px 5px rgba(255,255,255,0.75)"
+                  : "3px 3px 8px rgba(165,185,210,0.35), -3px -3px 8px rgba(255,255,255,0.9)",
+              }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              title="Cerrar/Ocultar Menú de Operational Control"
+            >
+              <div className="grid grid-cols-3 gap-0.5 w-5 h-5 items-center justify-center">
+                {Array.from({ length: 9 }).map((_, i) => (
+                  <div key={i} className="w-1 h-1 rounded-[1.5px] bg-[#009fdb]" />
+                ))}
+              </div>
+            </motion.button>
           </div>
         </div>
 
@@ -98,13 +148,13 @@ export function SidebarGlass({
         <div className="flex flex-col gap-4.5">
           {mainNav.map((item) => {
             const Icon = item.icon;
-            const isActive = activeSection === item.id || (item.id === "dashboard" && activeSection === "");
+            const isActive = activeSection === item.id;
 
             return (
               <div key={item.id} className="relative group flex justify-center">
                 <motion.button
                   onClick={() => onSelectSection(item.id)}
-                  className="w-11 h-11 rounded-2xl flex items-center justify-center relative transition-all duration-200 border"
+                  className="w-11 h-11 rounded-2xl flex items-center justify-center relative transition-all duration-200 border cursor-pointer"
                   style={{
                     background: isActive ? "linear-gradient(135deg, #f0f4f8, #ffffff)" : "transparent",
                     borderColor: isActive ? "rgba(255,255,255,0.95)" : "transparent",
@@ -129,115 +179,185 @@ export function SidebarGlass({
           })}
         </div>
 
-        {/* Bottom Section: Profile Avatar matching Image 4 */}
-        <div className="relative group flex justify-center">
-          <motion.button
-            onClick={() => onSelectSection("admin")}
-            className="w-11 h-11 rounded-full flex items-center justify-center relative bg-white border border-white/90 shadow-[3px_3px_8px_rgba(165,185,210,0.3),-3px_-3px_8px_rgba(255,255,255,0.95)] transition-all duration-200 text-[#009fdb]"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <User className="w-5 h-5 text-[#009fdb]" />
-          </motion.button>
-          <div className="absolute left-16 top-1/2 -translate-y-1/2 pl-3 opacity-0 group-hover:opacity-100 transition-all pointer-events-none duration-200 z-50 whitespace-nowrap">
-            <div className="px-3 py-1.5 rounded-xl text-[10px] font-bold text-white bg-slate-900/90 backdrop-blur-md shadow-lg border border-slate-700/55">
-              Admin Profile
+        {/* Bottom Section: Profile Avatar & Migrated Floating Toolbar */}
+        <div className="flex flex-col items-center gap-3.5 w-full mt-auto">
+          {/* Profile Avatar */}
+          <div className="relative group flex justify-center">
+            <motion.button
+              onClick={() => onSelectSection("admin")}
+              className="w-11 h-11 rounded-full flex items-center justify-center relative bg-white border border-white/90 shadow-[3px_3px_8px_rgba(165,185,210,0.3),-3px_-3px_8px_rgba(255,255,255,0.95)] transition-all duration-200 text-[#009fdb] cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <User className="w-5 h-5 text-[#009fdb]" />
+            </motion.button>
+            <div className="absolute left-16 top-1/2 -translate-y-1/2 pl-3 opacity-0 group-hover:opacity-100 transition-all pointer-events-none duration-200 z-50 whitespace-nowrap">
+              <div className="px-3 py-1.5 rounded-xl text-[10px] font-bold text-white bg-slate-900/90 backdrop-blur-md shadow-lg border border-slate-700/55">
+                Admin Profile
+              </div>
             </div>
+          </div>
+
+          {/* Simple Divider */}
+          <div className="w-8 h-px bg-blue-100/50" />
+
+          {/* Migrated Floating Toolbar */}
+          <div className="flex flex-col items-center gap-1 w-full">
+            {tools.map((tool, i) => {
+              const Icon = tool.icon;
+              const isActive = activeTool === tool.id;
+              return (
+                <div key={tool.id} className="relative group flex justify-center">
+                  <motion.button
+                    onClick={() => onToolChange(tool.id)}
+                    title={tool.label}
+                    className="w-9 h-9 rounded-[14px] flex items-center justify-center relative transition-all duration-150 border cursor-pointer"
+                    style={{
+                      background: "#eff6ff",
+                      borderColor: isActive ? "rgba(30,58,138,0.2)" : "rgba(255,255,255,0.5)",
+                      boxShadow: isActive
+                        ? "inset 2px 2px 4px #cbd5e1, inset -2px -2px 4px #ffffff"
+                        : "2px 2px 4px #cbd5e1, -2px -2px 4px #ffffff",
+                    }}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Icon className="w-4 h-4" style={{ color: isActive ? "#1e3a8a" : "#475569" }} />
+                  </motion.button>
+                  <div className="absolute left-16 top-1/2 -translate-y-1/2 pl-3 opacity-0 group-hover:opacity-100 transition-all pointer-events-none duration-200 z-50 whitespace-nowrap">
+                    <div className="px-2.5 py-1.5 rounded-xl text-[10px] font-bold text-white bg-slate-900/90 backdrop-blur-md shadow-lg border border-slate-700/55">
+                      {tool.label}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+
+            <div className="w-5 h-px my-1" style={{ background: "rgba(30,58,138,0.14)" }} />
+
+            <motion.div
+              className="px-1.5 py-1 rounded-xl text-center cursor-default"
+              style={{ background: "rgba(30,58,138,0.05)" }}
+              animate={{ opacity: [1, 0.65, 1] }}
+              transition={{ duration: 2.6, repeat: Infinity }}
+            >
+              <span className="text-[8px] font-bold block font-mono" style={{ color: "#1e3a8a" }}>94%</span>
+              <span className="text-[7px] block" style={{ color: "#475569" }}>CONF</span>
+            </motion.div>
           </div>
         </div>
       </div>
 
       {/* ─── SECONDARY SIDEBAR (ATTACHED GLASS) ─── */}
-      <div
-        className="w-64 h-full flex flex-col p-5 justify-between transition-all duration-300 overflow-y-auto"
-        style={{
-          background: "rgba(255, 255, 255, 0.48)",
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-          border: "1px solid rgba(255, 255, 255, 0.65)",
-          borderRadius: "24px",
-          boxShadow: "8px 8px 24px rgba(174, 192, 208, 0.22), -8px -8px 24px rgba(255, 255, 255, 0.8), inset 1px 1px 3px rgba(255, 255, 255, 0.5)",
-        }}
-      >
-        <div className="space-y-5.5">
-          {/* Header */}
-          <div className="pb-3.5 border-b border-blue-100/50 text-left">
-            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#5b7290]" style={{ fontFamily: "'Segoe UI', sans-serif" }}>
-              ALRO SUPREME
-            </p>
-            <h3 className="text-sm font-bold text-blue-950 mt-0.5" style={{ fontFamily: "'Segoe UI', sans-serif" }}>
-              {activeAppMode === 'operational' ? "Operational Control" : "Architecture Control"}
-            </h3>
-          </div>
-
-          {/* SECTION 1: Controllers (Image 2 style Moon/Atom switch, Bell button, and Glass circular empty container) */}
-          <div className="flex items-center justify-between bg-white/40 p-1.5 rounded-2xl border border-white/60 shadow-sm">
-            {/* Moon/Atom Switch Pill */}
-            <button
-              onClick={() => setActiveAppMode(activeAppMode === 'operational' ? 'architecture' : 'operational')}
-              className="w-16 h-8 rounded-full bg-slate-100/90 border border-slate-200/50 p-1 flex items-center relative cursor-pointer"
-              style={{
-                boxShadow: "inset 2px 2px 5px rgba(165,185,210,0.18), inset -2px -2px 5px rgba(255,255,255,0.75)"
-              }}
-              title="Toggle Workspace Mode"
-            >
-              <motion.div
-                className="w-6 h-6 rounded-full bg-white flex items-center justify-center text-blue-600 border border-slate-200/25"
-                style={{
-                  boxShadow: "1px 1px 4px rgba(165,185,210,0.25)"
-                }}
-                animate={{ x: activeAppMode === 'operational' ? 0 : 32 }}
-                transition={{ type: "spring", stiffness: 350, damping: 25 }}
-              >
-                {activeAppMode === 'operational' ? (
-                  <Moon className="w-3.5 h-3.5 text-blue-600" />
-                ) : (
-                  <Atom className="w-3.5 h-3.5 text-blue-600" />
-                )}
-              </motion.div>
-              <div className="absolute inset-0 flex justify-between items-center px-2 pointer-events-none text-slate-400">
-                <Moon className={`w-3.5 h-3.5 ${activeAppMode === 'operational' ? 'opacity-0' : 'opacity-40'}`} />
-                <Atom className={`w-3.5 h-3.5 ${activeAppMode === 'architecture' ? 'opacity-0' : 'opacity-40'}`} />
+      <AnimatePresence>
+        {isOperationalControlOpen && (
+          <motion.div
+            initial={{ width: 0, opacity: 0, marginRight: -16 }}
+            animate={{ width: 256, opacity: 1, marginRight: 0 }}
+            exit={{ width: 0, opacity: 0, marginRight: -16 }}
+            transition={{ duration: 0.25 }}
+            className="w-64 h-full flex flex-col p-5 justify-between transition-all duration-300 overflow-y-auto"
+            style={{
+              background: "rgba(255, 255, 255, 0.48)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)",
+              border: "1px solid rgba(255, 255, 255, 0.65)",
+              borderRadius: "24px",
+              boxShadow: "8px 8px 24px rgba(174, 192, 208, 0.22), -8px -8px 24px rgba(255, 255, 255, 0.8), inset 1px 1px 3px rgba(255, 255, 255, 0.5)",
+            }}
+          >
+            <div className="space-y-5.5">
+              {/* Header */}
+              <div className="pb-3.5 border-b border-blue-100/50 text-left">
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#5b7290]" style={{ fontFamily: "'Segoe UI', sans-serif" }}>
+                  ALRO SUPREME
+                </p>
+                <h3 className="text-sm font-bold text-blue-950 mt-0.5" style={{ fontFamily: "'Segoe UI', sans-serif" }}>
+                  {activeAppMode === 'operational' ? "AURA LIVE" : "Architecture Control"}
+                </h3>
               </div>
-            </button>
 
-            {/* Notification Bell (Circular button) */}
-            <button
-              onClick={() => onSelectSection("alerts")}
-              className="w-8 h-8 rounded-full flex items-center justify-center relative bg-white border border-slate-200/50 text-[#1e3a8a] transition-all hover:scale-105"
-              style={{
-                boxShadow: "2px 2px 5px rgba(165,185,210,0.2), -2px -2px 5px rgba(255,255,255,0.95)"
-              }}
-              title="Alertas"
-            >
-              <Bell className="w-3.5 h-3.5 text-blue-900" />
-              <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-rose-500 rounded-full text-white text-[8px] flex items-center justify-center font-bold">3</span>
-            </button>
+              {/* SECTION 1: Controllers (Image 2 style Moon/Atom switch, Bell button, and Glass circular empty container) */}
+              <div className="flex items-center justify-between bg-white/40 p-1.5 rounded-2xl border border-white/60 shadow-sm">
+                {/* Moon/Atom Switch Pill */}
+                <button
+                  onClick={() => setActiveAppMode(activeAppMode === 'operational' ? 'architecture' : 'operational')}
+                  className="w-16 h-8 rounded-full bg-slate-100/90 border border-slate-200/50 p-1 flex items-center relative cursor-pointer"
+                  style={{
+                    boxShadow: "inset 2px 2px 5px rgba(165,185,210,0.18), inset -2px -2px 5px rgba(255,255,255,0.75)"
+                  }}
+                  title="Toggle Workspace Mode"
+                >
+                  <motion.div
+                    className="w-6 h-6 rounded-full bg-white flex items-center justify-center text-blue-600 border border-slate-200/25"
+                    style={{
+                      boxShadow: "1px 1px 4px rgba(165,185,210,0.25)"
+                    }}
+                    animate={{ x: activeAppMode === 'operational' ? 0 : 32 }}
+                    transition={{ type: "spring", stiffness: 350, damping: 25 }}
+                  >
+                    {activeAppMode === 'operational' ? (
+                      <Moon className="w-3.5 h-3.5 text-blue-600" />
+                    ) : (
+                      <Atom className="w-3.5 h-3.5 text-blue-600" />
+                    )}
+                  </motion.div>
+                  <div className="absolute inset-0 flex justify-between items-center px-2 pointer-events-none text-slate-400">
+                    <Moon className={`w-3.5 h-3.5 ${activeAppMode === 'operational' ? 'opacity-0' : 'opacity-40'}`} />
+                    <Atom className={`w-3.5 h-3.5 ${activeAppMode === 'architecture' ? 'opacity-0' : 'opacity-40'}`} />
+                  </div>
+                </button>
 
-            {/* Glass circular container (Image 2 style) */}
-            <button
-              onClick={() => onSelectSection("settings")}
-              className="w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-br from-white to-slate-50 border border-slate-200/50 transition-all hover:scale-105"
-              style={{
-                boxShadow: "2px 2px 5px rgba(165,185,210,0.2), -2px -2px 5px rgba(255,255,255,0.95)"
-              }}
-              title="Ajustes de Sistema"
-            >
-              <Settings className="w-3.5 h-3.5 text-blue-900" />
-            </button>
-          </div>
+                {/* Notification Bell (Circular button) */}
+                <button
+                  onClick={() => onSelectSection("alerts")}
+                  className="w-8 h-8 rounded-full flex items-center justify-center relative bg-white border border-slate-200/50 text-[#1e3a8a] transition-all hover:scale-105 cursor-pointer"
+                  style={{
+                    boxShadow: "2px 2px 5px rgba(165,185,210,0.2), -2px -2px 5px rgba(255,255,255,0.95)"
+                  }}
+                  title="Alertas"
+                >
+                  <Bell className="w-3.5 h-3.5 text-blue-900" />
+                  <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-rose-500 rounded-full text-white text-[8px] flex items-center justify-center font-bold">3</span>
+                </button>
 
-          {/* DYNAMIC VIEW-BASED SECONDARY CONTENT */}
-          <AnimatePresence mode="wait">
-            {activeAppMode === 'operational' ? (
-              <motion.div
-                key="operational-sec"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="space-y-5"
-              >
+                {/* Glass circular container (Image 2 style) */}
+                <button
+                  onClick={() => onSelectSection("settings")}
+                  className="w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-br from-white to-slate-50 border border-slate-200/50 transition-all hover:scale-105 cursor-pointer"
+                  style={{
+                    boxShadow: "2px 2px 5px rgba(165,185,210,0.2), -2px -2px 5px rgba(255,255,255,0.95)"
+                  }}
+                  title="Ajustes de Systema"
+                >
+                  <Settings className="w-3.5 h-3.5 text-blue-900" />
+                </button>
+              </div>
+
+              {/* DYNAMIC VIEW-BASED SECONDARY CONTENT */}
+              <AnimatePresence mode="wait">
+                {activeAppMode === 'operational' ? (
+                  <motion.div
+                    key="operational-sec"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="space-y-5"
+                  >
+                {/* Menú de Colores Live */}
+                <div className="space-y-2 text-left bg-white/20 p-2.5 rounded-2xl border border-white/40">
+                  <p className="text-[9px] font-bold uppercase tracking-wider text-[#5b7290]" style={{ fontFamily: "'Segoe UI', sans-serif" }}>
+                    Aura Live Status
+                  </p>
+                  <div className="flex items-center gap-1 bg-white/70 px-2.5 py-1.5 rounded-xl border border-slate-200/50 shadow-sm w-fit">
+                    {AURA_NODES_LOCAL.map(node => (
+                      <div key={node.id} className="w-2 h-2 rounded-full" style={{ background: node.color }} title={node.name} />
+                    ))}
+                    <span className="text-[8px] font-black text-blue-600 font-mono tracking-widest ml-1 animate-pulse">LIVE</span>
+                  </div>
+                </div>
+
                 {/* 1. Semáforos de Red */}
                 <div className="space-y-2 text-left">
                   <p className="text-[9px] font-bold uppercase tracking-wider text-[#5b7290]" style={{ fontFamily: "'Segoe UI', sans-serif" }}>
@@ -450,7 +570,9 @@ export function SidebarGlass({
             <span className="text-[8px] font-bold text-[#10b981]" style={{ fontFamily: "'Segoe UI', sans-serif" }}>SECURE SYSTEM</span>
           </div>
         </div>
-      </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
     </div>
   );
 }

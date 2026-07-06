@@ -816,7 +816,7 @@ function ApiGatewayPorts({ tick, darkMode }: { tick: number; darkMode?: boolean 
           </div>
           {sfStatuses.map(s => (
             <div key={s.label} className="flex items-center justify-between">
-              <span className="text-[10px]" style={{ color: "#6b9e8d" }}>{s.label}</span>
+              <span className="text-[10px]" style={{ color: "#5b7290" }}>{s.label}</span>
               <div className="flex items-center gap-1.5">
                 <motion.div className="w-1.5 h-1.5 rounded-full"
                   style={{ background: s.color }}
@@ -853,7 +853,7 @@ function ApiGatewayPorts({ tick, darkMode }: { tick: number; darkMode?: boolean 
             <div key={h.code} className="flex items-center justify-between">
               <span className="text-[10px] font-mono font-bold" style={{ color: h.color }}>{h.code}</span>
               <div className="flex items-center gap-1.5">
-                <span className="text-[9px]" style={{ color: "#6b9e8d" }}>{h.label}</span>
+                <span className="text-[9px]" style={{ color: "#5b7290" }}>{h.label}</span>
                 <motion.span
                   className="text-[10px] font-bold font-mono px-1.5 py-0.5 rounded-md"
                   style={{ background: `${h.color}10`, color: h.color }}
@@ -875,7 +875,7 @@ function ApiGatewayPorts({ tick, darkMode }: { tick: number; darkMode?: boolean 
         <div className="space-y-2.5">
           <div>
             <span className="text-[9px] uppercase tracking-widest font-mono mb-1.5 block"
-              style={{ color: "#6b9e8d" }}>ToT — Tree of Thoughts</span>
+              style={{ color: "#5b7290" }}>ToT — Tree of Thoughts</span>
             <div className="flex items-center gap-1">
               {totStages.map((stage, i) => (
                 <div key={stage} className="flex-1 text-center">
@@ -885,7 +885,7 @@ function ApiGatewayPorts({ tick, darkMode }: { tick: number; darkMode?: boolean 
                     transition={{ duration: 0.65, repeat: Infinity }}
                   />
                   <span className="text-[7px] leading-none"
-                    style={{ color: i <= activeTot ? "#F9AB00" : "#aac5bc" }}>
+                    style={{ color: i <= activeTot ? "#F9AB00" : "#94a3b8" }}>
                     {stage}
                   </span>
                 </div>
@@ -894,7 +894,7 @@ function ApiGatewayPorts({ tick, darkMode }: { tick: number; darkMode?: boolean 
           </div>
           <div>
             <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px]" style={{ color: "#6b9e8d" }}>Incertidumbre Alg.</span>
+              <span className="text-[10px]" style={{ color: "#5b7290" }}>Incertidumbre Alg.</span>
               <span className="text-[10px] font-bold font-mono" style={{ color: "#F9AB00" }}>
                 {(6 + (tick % 4)).toFixed(1)}%
               </span>
@@ -907,7 +907,7 @@ function ApiGatewayPorts({ tick, darkMode }: { tick: number; darkMode?: boolean 
             </div>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-[10px]" style={{ color: "#6b9e8d" }}>Matrix Input</span>
+            <span className="text-[10px]" style={{ color: "#5b7290" }}>Matrix Input</span>
             <div className="grid grid-cols-7 gap-0.5">
               {Array.from({ length: 21 }).map((_, i) => (
                 <motion.div key={i} className="w-1.5 h-1.5 rounded-sm"
@@ -927,13 +927,13 @@ function ApiGatewayPorts({ tick, darkMode }: { tick: number; darkMode?: boolean 
     <motion.section className="mb-5"
       initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.42 }}>
       <div className="flex items-center gap-3 mb-3">
-        <span className="text-[11px] font-semibold uppercase tracking-widest" style={{ color: "#7a9a8d" }}>
+        <span className="text-[11px] font-semibold uppercase tracking-widest" style={{ color: "#1e3a8a" }}>
           Tri-Gateway Hub — API Connections
         </span>
         <div className="h-px flex-1"
-          style={{ background: "linear-gradient(to right,rgba(16,185,129,0.2),transparent)" }} />
+          style={{ background: "linear-gradient(to right,rgba(37,99,235,0.2),transparent)" }} />
         <span className="text-[10px] font-bold font-mono px-2 py-0.5 rounded-full"
-          style={{ background: "rgba(16,185,129,0.07)", border: "1px solid rgba(16,185,129,0.16)", color: "#10b981" }}>
+          style={{ background: "rgba(37,99,235,0.07)", border: "1px solid rgba(37,99,235,0.16)", color: "#2563eb" }}>
           3 SLOTS ACTIVE
         </span>
       </div>
@@ -956,10 +956,10 @@ function ApiGatewayPorts({ tick, darkMode }: { tick: number; darkMode?: boolean 
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-xs font-bold leading-none mb-0.5" style={{ color: darkMode ? "#ffffff" : "#0d1f1a" }}>{port.name}</p>
-                  <p className="text-[9px]" style={{ color: darkMode ? "#94a3b8" : "#7a9a8d" }}>{port.subtitle}</p>
+                  <p className="text-[9px]" style={{ color: darkMode ? "#94a3b8" : "#5b7290" }}>{port.subtitle}</p>
                 </div>
                 <motion.div className="w-2 h-2 rounded-full"
-                  style={{ background: "#10b981" }}
+                  style={{ background: "#2563eb" }}
                   animate={{ opacity: [1, 0.3, 1], scale: [1, 1.5, 1] }}
                   transition={{ duration: 1.6, repeat: Infinity, delay: i * 0.4 }}
                 />
@@ -2098,138 +2098,6 @@ export default function App() {
             {/* Sticky header */}
           <div className="sticky top-0 z-30">
             <HudLedger />
-            <nav className="px-5 py-3" style={G.nav}>
-              <div className="flex items-center justify-between gap-3">
-                {/* LEFT: User / Org & Mode Selectors */}
-                <div className="flex items-center gap-3 flex-shrink-0">
-                  {/* ADMIN recuadro */}
-                  <div ref={orgDropdownRef} className="relative">
-                    <motion.button
-                      onClick={() => setOrgDropdownOpen(p => !p)}
-                      className="flex items-center gap-2.5 p-2 pr-3 rounded-2xl"
-                      style={G.card}
-                      whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                    >
-                      <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#10b981] to-[#059669]
-                        flex items-center justify-center text-white text-sm font-bold flex-shrink-0">A</div>
-                      <div className="flex flex-col items-start leading-none gap-0.5">
-                        <span className="text-sm font-semibold" style={{ color: "#0d1f1a" }}>Admin</span>
-                        <span className="text-[9px] flex items-center gap-1" style={{ color: "#7a9a8d" }}>
-                          <Building2 style={{ width: 9, height: 9 }} />
-                          <span>Organización de mi departamento</span>
-                          <span style={{ color: "#10b981", fontWeight: 700 }}>· {currentDept}</span>
-                        </span>
-                      </div>
-                      <motion.div animate={{ rotate: orgDropdownOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
-                        <ChevronDown className="w-3.5 h-3.5" style={{ color: "#1e3a8a" }} />
-                      </motion.div>
-                    </motion.button>
-
-                    <AnimatePresence>
-                      {orgDropdownOpen && (
-                        <motion.div
-                          className="absolute left-0 top-full mt-2 w-56 rounded-2xl z-50 overflow-hidden"
-                          style={G.cardDeep}
-                          initial={{ opacity: 0, y: -8, scale: 0.96 }}
-                          animate={{ opacity: 1, y: 0, scale: 1 }}
-                          exit={{ opacity: 0, y: -8, scale: 0.96 }}
-                          transition={{ duration: 0.18 }}
-                        >
-                          <div className="px-4 py-3"
-                            style={{ borderBottom: "1px solid rgba(16,185,129,0.08)" }}>
-                            <div className="flex items-center gap-2.5">
-                              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#10b981] to-[#059669]
-                                flex items-center justify-center text-white text-sm font-bold flex-shrink-0">A</div>
-                              <div>
-                                <p className="text-sm font-semibold" style={{ color: "#0d1f1a" }}>Admin User</p>
-                                <p className="text-xs" style={{ color: "#7a9a8d" }}>admin@arlo.io</p>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="p-2">
-                            <p className="text-[9px] uppercase tracking-widest px-2 py-1"
-                              style={{ color: "#7a9a8d" }}>
-                              Organización / Departamento
-                            </p>
-                            {ORG_DEPTS.map(dept => (
-                              <button key={dept}
-                                onClick={() => { setCurrentDept(dept); setOrgDropdownOpen(false); }}
-                                className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-sm"
-                                style={{
-                                  color: currentDept === dept ? "#1e3a8a" : "#4a7268",
-                                  fontWeight: currentDept === dept ? 600 : 400,
-                                  transition: "background 0.1s",
-                                }}
-                                onMouseEnter={e => (e.currentTarget.style.background = "rgba(16,185,129,0.06)")}
-                                onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
-                              >
-                                {dept}
-                                {currentDept === dept && <Check className="w-3 h-3" style={{ color: "#1e3a8a" }} />}
-                              </button>
-                            ))}
-                          </div>
-                          <div className="p-2 pt-0">
-                            <motion.button
-                              onClick={() => { setShareOpen(true); setOrgDropdownOpen(false); }}
-                              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold text-white"
-                              style={{ background: "linear-gradient(135deg,#1e3a8a,#3b82f6)" }}
-                              whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
-                            >
-                              <Share2 className="w-3.5 h-3.5" /> Compartir Vista
-                            </motion.button>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Icon 3: Operaciones (Expandable) */}
-                  <div className="relative">
-                    <motion.button
-                      onClick={() => {
-                        setActiveAppMode('operational');
-                        setIsOpsOpen(prev => !prev);
-                        setIsArchOpen(false);
-                      }}
-                      className="flex items-center gap-2.5 p-2 rounded-full relative overflow-hidden h-[48px]"
-                      style={{
-                        ...G.card,
-                        background: activeAppMode === 'operational' ? "rgba(6, 182, 212, 0.12)" : G.card.background,
-                        border: activeAppMode === 'operational' ? "1.5px solid #22d3ee" : "1px solid rgba(6, 182, 212, 0.15)",
-                        boxShadow: activeAppMode === 'operational' ? "3px 3px 8px rgba(34, 211, 238, 0.3), -2px -2px 6px rgba(255,255,255,0.9)" : "3px 3px 6px rgba(165, 185, 210, 0.2), -2px -2px 6px rgba(255,255,255,0.9)",
-                      }}
-                      animate={{ width: isOpsOpen ? "auto" : "48px" }}
-                      transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      title="Operaciones (Light)"
-                    >
-                      <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white flex-shrink-0 shadow-[0_2px_8px_rgba(6,182,212,0.3)]">
-                        <Activity className="w-4 h-4 text-white" />
-                      </div>
-                      <AnimatePresence initial={false}>
-                        {isOpsOpen && (
-                          <motion.div
-                            initial={{ opacity: 0, width: 0 }}
-                            animate={{ opacity: 1, width: "auto" }}
-                            exit={{ opacity: 0, width: 0 }}
-                            className="flex items-center gap-2 whitespace-nowrap overflow-hidden pr-2"
-                          >
-                            <span className="text-xs font-extrabold text-cyan-600 dark:text-cyan-400 font-mono">
-                              OPERACIONES
-                            </span>
-                            <span className="text-[7.5px] font-black uppercase tracking-widest text-cyan-500 bg-cyan-100/60 dark:bg-cyan-950/40 px-1.5 py-0.5 rounded border border-cyan-500/10">
-                              LIGHT
-                            </span>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </motion.button>
-                  </div>
-                </div>
-
-              </div>
-            </nav>
           </div>
 
           {/* Main content */}
@@ -2251,6 +2119,8 @@ export default function App() {
               orgDepts={ORG_DEPTS}
               selectedNode={selectedNode}
               setSelectedNode={setSelectedNode}
+              activeTool={activeTool}
+              onToolChange={handleToolChange}
             />
 
             {activeAppMode === 'architecture' ? (
@@ -2544,32 +2414,6 @@ export default function App() {
                 initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
                 <div>
                   <h2 className="text-xl font-bold uppercase tracking-wider font-mono text-[#1e3a8a]">{currentDept} System Status</h2>
-                </div>
-                <div className="hidden md:flex items-center gap-2 px-3 py-2 rounded-2xl" style={G.inset}>
-                  {AURA_NODES.map(node => (
-                    <motion.button key={node.id}
-                      title={`${node.name} · ${node.confidence}%`}
-                      onClick={() => setExpandedKpi(node.id)}
-                      className="w-2.5 h-2.5 rounded-full"
-                      style={{ background: node.color, boxShadow: `0 0 ${node.confidence >= 94 ? "5px" : "2px"} ${node.color}` }}
-                      whileHover={{ scale: 1.5 }} />
-                  ))}
-                  <motion.span
-                    className="text-[9px] font-bold ml-1 uppercase tracking-[0.2em]"
-                    style={{ color: "#2563eb", display: "inline-block" }}
-                    animate={{
-                      scale: [1, 1.15, 1, 1.15, 1],
-                      opacity: [1, 0.7, 1, 0.7, 1],
-                    }}
-                    transition={{
-                      duration: 1.8,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      times: [0, 0.12, 0.24, 0.38, 1]
-                    }}
-                  >
-                    LIVE
-                  </motion.span>
                 </div>
               </motion.div>
 
@@ -3293,7 +3137,12 @@ export default function App() {
 
             {/* GDS & Movement Console with clean spacing wrapper */}
             <div style={G.gdsConsoleWrapper}>
-              <GdsMovementConsole activeNode={opsActiveNode} darkMode={isDark} />
+              <GdsMovementConsole 
+                activeNode={opsActiveNode} 
+                darkMode={isDark} 
+                showNetworkCanvas={showNetworkCanvas}
+                setShowNetworkCanvas={setShowNetworkCanvas}
+              />
             </div>
 
             {/* Neo Aura 4j Network */}
@@ -3307,30 +3156,30 @@ export default function App() {
                 >
                   <div className="flex items-center gap-3 mb-3">
                     <motion.div className="w-1.5 h-1.5 rounded-full"
-                      style={{ background: "#10b981" }}
+                      style={{ background: "#2563eb" }}
                       animate={{ opacity: [1, 0.3, 1] }}
                       transition={{ duration: 1.4, repeat: Infinity }} />
-                    <span className="text-[11px] font-semibold uppercase tracking-widest" style={{ color: "#7a9a8d" }}>
+                    <span className="text-[11px] font-semibold uppercase tracking-widest" style={{ color: "#1e3a8a" }}>
                       Neo Aura 4j — Live Network · Betweenness Centrality
                     </span>
                     <div className="h-px flex-1"
-                      style={{ background: "linear-gradient(to right,rgba(16,185,129,0.2),transparent)" }} />
+                      style={{ background: "linear-gradient(to right,rgba(37,99,235,0.2),transparent)" }} />
                     <motion.span
                       className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-full"
                       style={{ 
-                        background: "rgba(16,185,129,0.07)", 
-                        border: "1px solid rgba(16,185,129,0.17)", 
-                        color: "#10b981",
+                        background: "rgba(37,99,235,0.07)", 
+                        border: "1px solid rgba(37,99,235,0.17)", 
+                        color: "#2563eb",
                         display: "inline-block"
                       }}
                       animate={{
                         scale: [1, 1.10, 1, 1.10, 1],
                         boxShadow: [
-                          "0 0 0px rgba(16,185,129,0)",
-                          "0 0 6px rgba(16,185,129,0.35)",
-                          "0 0 0px rgba(16,185,129,0)",
-                          "0 0 6px rgba(16,185,129,0.35)",
-                          "0 0 0px rgba(16,185,129,0)"
+                          "0 0 0px rgba(37,99,235,0)",
+                          "0 0 6px rgba(37,99,235,0.35)",
+                          "0 0 0px rgba(37,99,235,0)",
+                          "0 0 6px rgba(37,99,235,0.35)",
+                          "0 0 0px rgba(37,99,235,0)"
                         ]
                       }}
                       transition={{
@@ -3421,17 +3270,17 @@ export default function App() {
               <div className="mt-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
                   <div className="flex items-center gap-3">
-                    <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "#7a9a8d" }}>
+                    <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "#1e3a8a" }}>
                       KPI — Neo Aura Nodes
                     </span>
                     <div className="hidden sm:block h-px w-24"
-                      style={{ background: "linear-gradient(to right,rgba(16,185,129,0.14),transparent)" }} />
+                      style={{ background: "linear-gradient(to right,rgba(37,99,235,0.14),transparent)" }} />
                   </div>
                   
                   <div className="flex items-center gap-3 ml-auto sm:ml-0">
                     {/* Sorting Dropdown */}
                     <div className="flex items-center gap-1.5 bg-white/40 px-2.5 py-1 rounded-xl border border-slate-200/50 shadow-xs">
-                      <span className="text-[8.5px] font-extrabold text-[#7a9a8d] uppercase tracking-wider font-mono">Ordenar por:</span>
+                      <span className="text-[8.5px] font-extrabold text-[#5b7290] uppercase tracking-wider font-mono">Ordenar por:</span>
                       <select
                         id="kpi-sort-dropdown"
                         value={kpiSortBy}
@@ -3481,18 +3330,15 @@ export default function App() {
               )}
             </AnimatePresence>
 
-            {/* Tri-Gateway Hub */}
-            <ApiGatewayPorts tick={gatewayTick} darkMode={isDark} />
-
             {/* Analytics Grid */}
             <div className="mb-4">
               <div className="flex items-center gap-3 mb-3">
-                <Layers className="w-3.5 h-3.5" style={{ color: "#7a9a8d" }} />
-                <span className="text-[11px] font-semibold uppercase tracking-widest" style={{ color: "#7a9a8d" }}>
+                <Layers className="w-3.5 h-3.5" style={{ color: "#2563eb" }} />
+                <span className="text-[11px] font-semibold uppercase tracking-widest" style={{ color: "#1e3a8a" }}>
                   Analytics — click any card para expandir · di el nombre por voz
                 </span>
                 <div className="h-px flex-1"
-                  style={{ background: "linear-gradient(to right,rgba(16,185,129,0.14),transparent)" }} />
+                  style={{ background: "linear-gradient(to right,rgba(37,99,235,0.14),transparent)" }} />
               </div>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {ANALYTICS_CARDS.map((card, i) => (
@@ -3511,14 +3357,144 @@ export default function App() {
                 ))}
               </div>
             </div>
+
+            {/* Tri-Gateway Hub */}
+            <ApiGatewayPorts tick={gatewayTick} darkMode={isDark} />
             </div>
 
             )}
 
           </div>
 
-          {/* Floating vertical toolbar */}
-          <FloatingToolbar activeTool={activeTool} onToolChange={handleToolChange} />
+          {/* Bottom Control Bar / Refactored Menu */}
+          <div className="w-full border-t border-blue-100/30 bg-white/40 backdrop-blur-md px-6 py-4 flex items-center justify-center relative z-20 mt-auto shadow-[0_-4px_16px_rgba(150,175,205,0.06)]">
+            <div className="flex items-center gap-4 flex-wrap">
+              {/* ADMIN recuadro */}
+              <div ref={orgDropdownRef} className="relative">
+                <motion.button
+                  onClick={() => setOrgDropdownOpen(p => !p)}
+                  className="flex items-center gap-2.5 p-2 pr-3 rounded-2xl"
+                  style={G.card}
+                  whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                >
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#10b981] to-[#059669]
+                    flex items-center justify-center text-white text-sm font-bold flex-shrink-0">A</div>
+                  <div className="flex flex-col items-start leading-none gap-0.5">
+                    <span className="text-sm font-semibold" style={{ color: "#0d1f1a" }}>Admin</span>
+                    <span className="text-[9px] flex items-center gap-1" style={{ color: "#7a9a8d" }}>
+                      <Building2 style={{ width: 9, height: 9 }} />
+                      <span>Organización de mi departamento</span>
+                      <span style={{ color: "#10b981", fontWeight: 700 }}>· {currentDept}</span>
+                    </span>
+                  </div>
+                  <motion.div animate={{ rotate: orgDropdownOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
+                    <ChevronDown className="w-3.5 h-3.5" style={{ color: "#1e3a8a" }} />
+                  </motion.div>
+                </motion.button>
+
+                <AnimatePresence>
+                  {orgDropdownOpen && (
+                    <motion.div
+                      className="absolute left-0 bottom-full mb-2.5 w-56 rounded-2xl z-50 overflow-hidden"
+                      style={G.cardDeep}
+                      initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                      transition={{ duration: 0.18 }}
+                    >
+                      <div className="px-4 py-3"
+                        style={{ borderBottom: "1px solid rgba(16,185,129,0.08)" }}>
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#10b981] to-[#059669]
+                            flex items-center justify-center text-white text-sm font-bold flex-shrink-0">A</div>
+                          <div>
+                            <p className="text-sm font-semibold" style={{ color: "#0d1f1a" }}>Admin User</p>
+                            <p className="text-xs" style={{ color: "#7a9a8d" }}>admin@arlo.io</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-2">
+                        <p className="text-[9px] uppercase tracking-widest px-2 py-1"
+                          style={{ color: "#7a9a8d" }}>
+                          Organización / Departamento
+                        </p>
+                        {ORG_DEPTS.map(dept => (
+                          <button key={dept}
+                            onClick={() => { setCurrentDept(dept); setOrgDropdownOpen(false); }}
+                            className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-sm"
+                            style={{
+                              color: currentDept === dept ? "#1e3a8a" : "#4a7268",
+                              fontWeight: currentDept === dept ? 600 : 400,
+                              transition: "background 0.1s",
+                            }}
+                            onMouseEnter={e => (e.currentTarget.style.background = "rgba(16,185,129,0.06)")}
+                            onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+                          >
+                            {dept}
+                            {currentDept === dept && <Check className="w-3 h-3" style={{ color: "#1e3a8a" }} />}
+                          </button>
+                        ))}
+                      </div>
+                      <div className="p-2 pt-0">
+                        <motion.button
+                          onClick={() => { setShareOpen(true); setOrgDropdownOpen(false); }}
+                          className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold text-white"
+                          style={{ background: "linear-gradient(135deg,#1e3a8a,#3b82f6)" }}
+                          whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}
+                        >
+                          <Share2 className="w-3.5 h-3.5" /> Compartir Vista
+                        </motion.button>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              {/* Icon 3: Operaciones (Expandable) */}
+              <div className="relative">
+                <motion.button
+                  onClick={() => {
+                    setActiveAppMode('operational');
+                    setIsOpsOpen(prev => !prev);
+                    setIsArchOpen(false);
+                  }}
+                  className="flex items-center gap-2.5 p-2 rounded-full relative overflow-hidden h-[48px]"
+                  style={{
+                    ...G.card,
+                    background: activeAppMode === 'operational' ? "rgba(6, 182, 212, 0.12)" : G.card.background,
+                    border: activeAppMode === 'operational' ? "1.5px solid #22d3ee" : "1px solid rgba(6, 182, 212, 0.15)",
+                    boxShadow: activeAppMode === 'operational' ? "3px 3px 8px rgba(34, 211, 238, 0.3), -2px -2px 6px rgba(255,255,255,0.9)" : "3px 3px 6px rgba(165, 185, 210, 0.2), -2px -2px 6px rgba(255,255,255,0.9)",
+                  }}
+                  animate={{ width: isOpsOpen ? "auto" : "48px" }}
+                  transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  title="Operaciones (Light)"
+                >
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white flex-shrink-0 shadow-[0_2px_8px_rgba(6,182,212,0.3)]">
+                    <Activity className="w-4 h-4 text-white" />
+                  </div>
+                  <AnimatePresence initial={false}>
+                    {isOpsOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, width: 0 }}
+                        animate={{ opacity: 1, width: "auto" }}
+                        exit={{ opacity: 0, width: 0 }}
+                        className="flex items-center gap-2 whitespace-nowrap overflow-hidden pr-2"
+                      >
+                        <span className="text-xs font-extrabold text-cyan-600 dark:text-cyan-400 font-mono">
+                          OPERACIONES
+                        </span>
+                        <span className="text-[7.5px] font-black uppercase tracking-widest text-cyan-500 bg-cyan-100/60 dark:bg-cyan-950/40 px-1.5 py-0.5 rounded border border-cyan-500/10">
+                          LIGHT
+                        </span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.button>
+              </div>
+            </div>
+          </div>
 
           {/* Node context menu */}
           <AnimatePresence>
