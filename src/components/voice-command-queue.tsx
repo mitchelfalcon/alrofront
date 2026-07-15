@@ -40,14 +40,7 @@ export function VoiceCommandQueue() {
 
   return (
     <div
-      className="p-3.5 rounded-2xl h-full flex flex-col justify-between"
-      style={{
-        background: "rgba(240, 246, 255, 0.48)",
-        backdropFilter: "blur(24px)",
-        WebkitBackdropFilter: "blur(24px)",
-        border: "1px solid rgba(255, 255, 255, 0.7)",
-        boxShadow: "14px 14px 32px rgba(150, 175, 205, 0.32), -14px -14px 32px rgba(255, 255, 255, 0.95), inset 3px 3px 6px rgba(255, 255, 255, 0.8), inset -3px -3px 6px rgba(150, 175, 205, 0.15)",
-      }}
+      className="p-3.5 rounded-2xl h-full flex flex-col justify-between glass-neo-card"
     >
       <div>
         <div className="flex items-center justify-between mb-2">
@@ -55,7 +48,7 @@ export function VoiceCommandQueue() {
             <List className="w-4 h-4 text-[#2563eb]" /> Voice Command Queue
           </h3>
           <span className="text-[9px] font-mono font-bold bg-[#2563eb]/10 text-[#2563eb] px-2 py-0.5 rounded-full">
-            {commands.length} EN COLA
+            {commands.length} IN QUEUE
           </span>
         </div>
 
@@ -82,7 +75,7 @@ export function VoiceCommandQueue() {
                 >
                   <div className="flex items-center gap-2 min-w-0">
                     {isCompleted ? (
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" />
                     ) : isActive ? (
                       <div className="relative flex h-2 w-2 flex-shrink-0">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
@@ -107,7 +100,7 @@ export function VoiceCommandQueue() {
                   <span
                     className={`text-[8px] font-mono font-bold uppercase tracking-wider px-1.5 py-0.2 rounded ${
                       isCompleted
-                        ? "bg-emerald-500/10 text-emerald-600"
+                        ? "bg-blue-500/10 text-blue-600"
                         : isActive
                         ? "bg-blue-500/10 text-blue-600"
                         : "bg-slate-300/20 text-slate-500"

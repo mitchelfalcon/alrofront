@@ -43,7 +43,7 @@ const cards = [
     value: "$125,500.00",
     change: "+8.4%",
     trend: "up" as const,
-    color: "#009970",
+    color: "#2563eb",
     gradId: "balGrad1",
     progress: 78,
     sparkData: [80, 95, 72, 110, 88, 120, 105, 130],
@@ -53,7 +53,7 @@ const cards = [
     value: "$28,340.00",
     change: "+12.1%",
     trend: "up" as const,
-    color: "#00c4a0",
+    color: "#0ea5e9",
     gradId: "balGrad2",
     progress: 55,
     sparkData: [20, 35, 28, 45, 38, 50, 42, 55],
@@ -76,25 +76,23 @@ export function BalanceOverview() {
       {cards.map((card, index) => (
         <motion.div
           key={card.title}
-          className="p-6 bg-[#e2ede9] rounded-3xl cursor-pointer
-            shadow-[12px_12px_24px_#bdc9c4,-12px_-12px_24px_#ffffff]"
+          className="p-6 rounded-3xl cursor-pointer glass-neo-card"
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 + index * 0.1 }}
-          whileHover={{ scale: 1.02, boxShadow: "16px 16px 32px #bdc9c4, -16px -16px 32px #ffffff" }}
-          whileTap={{ scale: 0.98, boxShadow: "inset 6px 6px 12px #bdc9c4, inset -6px -6px 12px #ffffff" }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
         >
           <div className="flex items-start justify-between mb-4">
             <div>
-              <p className="text-[#7a9a8d] text-xs font-medium uppercase tracking-wider mb-1">
+              <p className="text-[#5b7290] text-xs font-semibold uppercase tracking-wider mb-1">
                 {card.title}
               </p>
-              <h3 className="text-[#1d3a2f] text-2xl font-bold leading-none">{card.value}</h3>
+              <h3 className="text-[#1e3a8a] text-2xl font-bold leading-none">{card.value}</h3>
             </div>
             <motion.span
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold
-                bg-[#e2ede9] shadow-[inset_2px_2px_5px_#bdc9c4,inset_-2px_-2px_5px_#ffffff]
-                ${card.trend === "up" ? "text-[#009970]" : "text-[#ef4444]"}`}
+              className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-xs font-semibold glass-neo-inset
+                ${card.trend === "up" ? "text-[#2563eb]" : "text-[#ef4444]"}`}
               initial={{ opacity: 0, x: 12 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 + index * 0.1 }}
@@ -105,14 +103,12 @@ export function BalanceOverview() {
           </div>
 
           {/* Pure SVG sparkline — no recharts */}
-          <div className="h-[64px] mb-4 rounded-2xl overflow-hidden
-            shadow-[inset_4px_4px_8px_#bdc9c4,inset_-4px_-4px_8px_#ffffff]">
+          <div className="h-[64px] mb-4 rounded-2xl overflow-hidden glass-neo-inset">
             <Sparkline data={card.sparkData} color={card.color} gradId={card.gradId} />
           </div>
 
           {/* Progress bar */}
-          <div className="h-2 bg-[#e2ede9] rounded-full mb-2
-            shadow-[inset_2px_2px_4px_#bdc9c4,inset_-2px_-2px_4px_#ffffff]">
+          <div className="h-2 rounded-full mb-2 glass-neo-inset">
             <motion.div
               className="h-full rounded-full"
               style={{ backgroundColor: card.color }}
@@ -121,7 +117,7 @@ export function BalanceOverview() {
               transition={{ duration: 1.3, delay: 0.6 + index * 0.1, ease: "easeOut" }}
             />
           </div>
-          <p className="text-[#7a9a8d] text-xs">{card.progress}% of annual target</p>
+          <p className="text-[#5b7290] text-xs">{card.progress}% of annual target</p>
         </motion.div>
       ))}
     </div>

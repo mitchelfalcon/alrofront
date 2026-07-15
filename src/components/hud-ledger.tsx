@@ -15,8 +15,8 @@ const LOG_ENTRIES = [
 
 const LEVEL_COLOR: Record<string, string> = {
   INFO: "#38bdf8", // Blue/Info
-  WARN: "#f59e0b", // Yellow/Orange
-  OK:   "#10b981", // Green
+  WARN: "#5b7290", // Steel blue/Slate
+  OK:   "#0ea5e9", // Blue/Cyan instead of Green
   ERR:  "#ef4444", // Red
   ERROR: "#ef4444"
 };

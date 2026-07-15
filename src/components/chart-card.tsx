@@ -27,8 +27,8 @@ export function ChartCard() {
   const [hi, setHi] = useState<number | null>(null);
   return (
     <motion.div
-      className="p-6 bg-[#e2ede9] rounded-3xl shadow-[12px_12px_24px_#bdc9c4,-12px_-12px_24px_#ffffff] border-shimmer"
-      whileHover={{ scale: 1.02, boxShadow: "0 10px 30px rgba(37, 99, 235, 0.2)" }}
+      className="p-6 rounded-3xl glass-neo-card"
+      whileHover={{ scale: 1.02 }}
     >
       <motion.div
         className="mb-6"
@@ -37,9 +37,9 @@ export function ChartCard() {
         transition={{ delay: 0.2 }}
       >
         <h2 className="text-[#1e3a8a] font-bold text-lg mb-1">Revenue Overview</h2>
-        <p className="text-[#7a9a8d] text-sm">Monthly performance</p>
+        <p className="text-[#5b7290] text-sm font-semibold">Monthly performance</p>
       </motion.div>
-      <div className="h-[300px] p-4 bg-[#e2ede9] rounded-2xl shadow-[inset_6px_6px_12px_#bdc9c4,inset_-6px_-6px_12px_#ffffff]">
+      <div className="h-[300px] p-4 rounded-2xl glass-neo-inset">
         <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="100%" style={{ overflow: "visible" }}>
           <defs>
             <linearGradient id="cc-g" x1="0" y1="0" x2="0" y2="1">
@@ -49,14 +49,14 @@ export function ChartCard() {
           </defs>
           {[0, 0.25, 0.5, 0.75, 1].map((t) => (
             <g key={`g${t}`}>
-              <line x1={PL} y1={PT + t * CH} x2={W - PR} y2={PT + t * CH} stroke="#bdc9c4" strokeWidth={0.5} opacity={0.5} />
-              <text x={PL - 4} y={PT + t * CH + 4} textAnchor="end" fontSize={8} fill="#7a9a8d">
+              <line x1={PL} y1={PT + t * CH} x2={W - PR} y2={PT + t * CH} stroke="#c5d5e8" strokeWidth={0.5} opacity={0.5} />
+              <text x={PL - 4} y={PT + t * CH + 4} textAnchor="end" fontSize={8} fill="#5b7290">
                 ${((VMAX - t * (VMAX - VMIN)) / 1000).toFixed(0)}k
               </text>
             </g>
           ))}
           {GPTS.map((p, i) => (
-            <text key={`xl${i}`} x={p.x} y={H - 2} textAnchor="middle" fontSize={8} fill="#7a9a8d">
+            <text key={`xl${i}`} x={p.x} y={H - 2} textAnchor="middle" fontSize={8} fill="#5b7290">
               {p.name}
             </text>
           ))}
@@ -69,7 +69,7 @@ export function ChartCard() {
                 cx={p.x} cy={p.y}
                 r={hi === i ? 6 : 3.5}
                 fill={hi === i ? "#1e3a8a" : "#2563eb"}
-                stroke="#e2ede9"
+                stroke="#f0f6ff"
                 strokeWidth={2}
                 style={{ cursor: "pointer" }}
               />

@@ -4,12 +4,12 @@ interface AuraCanvasProps {
 }
 
 const NODES = [
-  { id: "core",         name: "CORE",        x: 350, y: 252, color: "#00ffa3", centrality: 1.00 },
-  { id: "facturacion",  name: "Facturación", x: 350, y:  68, color: "#10b981", centrality: 0.87 },
-  { id: "casos",        name: "Casos",       x: 568, y: 192, color: "#3b82f6", centrality: 0.72 },
-  { id: "actividades",  name: "Actividades", x: 498, y: 416, color: "#8b5cf6", centrality: 0.65 },
-  { id: "ledger",       name: "Ledger",      x: 202, y: 416, color: "#f59e0b", centrality: 0.58 },
-  { id: "voz",          name: "Voz",         x: 132, y: 192, color: "#06b6d4", centrality: 0.71 },
+  { id: "core",         name: "CORE",        x: 350, y: 252, color: "#38bdf8", centrality: 1.00 },
+  { id: "facturacion",  name: "Billing",     x: 350, y:  68, color: "#2563eb", centrality: 0.87 },
+  { id: "casos",        name: "Cases",       x: 568, y: 192, color: "#3b82f6", centrality: 0.72 },
+  { id: "actividades",  name: "Activities",  x: 498, y: 416, color: "#475569", centrality: 0.65 },
+  { id: "ledger",       name: "Ledger",      x: 202, y: 416, color: "#1d4ed8", centrality: 0.58 },
+  { id: "voz",          name: "Voice",       x: 132, y: 192, color: "#0ea5e9", centrality: 0.71 },
 ];
 
 const CONNECTIONS = [
@@ -189,7 +189,7 @@ export function AuraCanvas({ activeNode, onNodeClick }: AuraCanvasProps) {
                   x={node.x}
                   y={node.y + 4}
                   textAnchor="middle"
-                  fill="#00ffa3"
+                  fill="#2563eb"
                   fontSize={11}
                   fontWeight={700}
                   letterSpacing="3"
@@ -204,7 +204,7 @@ export function AuraCanvas({ activeNode, onNodeClick }: AuraCanvasProps) {
                   x={lx}
                   y={ly}
                   textAnchor={anchor}
-                  fill={isActive ? node.color : "#7a9a8d"}
+                  fill={isActive ? node.color : "#475569"}
                   fontSize={11}
                   fontWeight={isActive ? 700 : 500}
                 >

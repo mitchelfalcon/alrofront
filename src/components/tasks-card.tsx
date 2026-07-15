@@ -21,24 +21,19 @@ export function TasksCard() {
 
   return (
     <motion.div
-      className="p-6 bg-[#e2ede9] rounded-3xl
-        shadow-[12px_12px_24px_#bdc9c4,-12px_-12px_24px_#ffffff]"
-      whileHover={{
-        boxShadow: "16px 16px 32px #bdc9c4, -16px -16px 32px #ffffff"
-      }}
+      className="p-6 rounded-3xl glass-neo-card"
+      whileHover={{ scale: 1.01 }}
     >
       <div className="mb-6">
-        <h2 className="text-[#1d3a2f] mb-1">Tasks</h2>
-        <p className="text-[#7a9a8d] text-sm">Today's to-do list</p>
+        <h2 className="text-[#1e3a8a] mb-1 font-bold">Tasks</h2>
+        <p className="text-[#64748b] text-sm font-semibold">Today's to-do list</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {tasks.map((task, index) => (
           <motion.div
             key={task.id}
-            className="p-4 bg-[#e2ede9] rounded-2xl
-              shadow-[6px_6px_12px_#bdc9c4,-6px_-6px_12px_#ffffff]
-              transition-shadow cursor-pointer"
+            className="p-4 rounded-2xl transition-shadow cursor-pointer glass-neo-inset"
             onClick={() => toggleTask(task.id)}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -46,20 +41,14 @@ export function TasksCard() {
             whileHover={{
               scale: 1.02,
               y: -3,
-              boxShadow: "8px 8px 16px #bdc9c4, -8px -8px 16px #ffffff"
             }}
             whileTap={{
               scale: 0.98,
-              boxShadow: "inset 4px 4px 8px #bdc9c4, inset -4px -4px 8px #ffffff"
             }}
           >
             <div className="flex items-start gap-3">
               <motion.div
-                className={`mt-1 w-6 h-6 rounded-lg flex items-center justify-center transition-all
-                  ${task.completed
-                    ? "bg-[#e2ede9] shadow-[inset_3px_3px_6px_#bdc9c4,inset_-3px_-3px_6px_#ffffff]"
-                    : "bg-[#e2ede9] shadow-[3px_3px_6px_#bdc9c4,-3px_-3px_6px_#ffffff]"
-                  }`}
+                className={`mt-1 w-6 h-6 rounded-lg flex items-center justify-center transition-all glass-neo-inset`}
                 animate={{
                   scale: task.completed ? [1, 1.2, 1] : 1,
                   rotate: task.completed ? [0, 10, 0] : 0
@@ -74,12 +63,12 @@ export function TasksCard() {
                       exit={{ scale: 0, rotate: 180 }}
                       transition={{ type: "spring", stiffness: 300 }}
                     >
-                      <Check className="w-4 h-4 text-[#009970]" />
+                      <Check className="w-4 h-4 text-[#2563eb]" />
                     </motion.div>
                   )}
                 </AnimatePresence>
               </motion.div>
-              <p className={`flex-1 text-sm text-[#1d3a2f] ${task.completed ? "line-through opacity-50" : ""}`}>
+              <p className={`flex-1 text-sm text-[#0f172a] ${task.completed ? "line-through opacity-50" : ""}`}>
                 {task.title}
               </p>
             </div>

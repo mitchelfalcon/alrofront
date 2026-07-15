@@ -10,65 +10,65 @@ export interface ArchitectureNode {
 export const ARCHITECTURE_NODES: ArchitectureNode[] = [
   {
     id: "n1",
-    title: "Vector de Inicialización de Intención",
-    shortDescription: "Captura auditada de eventos con estado.",
-    fullDescription: "No recibimos 'texto', recibimos un evento con estado. Asegura que la IA no inicie un flujo conversacional pasivo, sino un proceso de evaluación para acción asíncrona.",
+    title: "Intention Initialization Vector",
+    shortDescription: "Audited capture of stateful events.",
+    fullDescription: "We do not receive 'text', we receive a stateful event. Ensures that AI does not start a passive conversational flow, but an evaluation process for asynchronous action.",
     icon: "Target",
     salesforceMapping: "Event-Driven State / Apex Action Input",
   },
   {
     id: "n2",
-    title: "Motor de Razonamiento Agéntico (ToT)",
-    shortDescription: "Árbol de pensamientos determinista.",
-    fullDescription: "Elimina la dependencia del modelo probabilístico crudo. Aplica Tree of Thoughts (ToT) restringido por reglas de negocio, garantizando razonamiento determinista y auditable.",
+    title: "Agentic Reasoning Engine (ToT)",
+    shortDescription: "Deterministic tree of thoughts.",
+    fullDescription: "Eliminates reliance on raw probabilistic models. Applies Tree of Thoughts (ToT) restricted by business rules, ensuring deterministic and auditable reasoning.",
     icon: "Brain",
     salesforceMapping: "Agentforce Platform Brain / LangGraph Logic",
   },
   {
     id: "n3",
-    title: "Anclaje Epistemológico de Datos",
-    shortDescription: "Salesforce Data Cloud como verdad absoluta.",
-    fullDescription: "La IA no busca información al azar. Ingesta metadatos estrictos de Salesforce Data Cloud para establecer la verdad absoluta del cliente antes de formular cualquier plan.",
+    title: "Epistemological Data Anchoring",
+    shortDescription: "Salesforce Data Cloud as absolute truth.",
+    fullDescription: "The AI does not search for information at random. Ingests strict metadata from Salesforce Data Cloud to establish the customer's absolute truth before formulating any plan.",
     icon: "Database",
     salesforceMapping: "Salesforce Data Cloud / Metadata Engine",
   },
   {
     id: "n4",
-    title: "Protocolos de Mitigación de Workslop",
-    shortDescription: "Destruye alucinaciones antes de ejecutar.",
-    fullDescription: "Inspecciona activamente el plan del agente para detectar y destruir alucinaciones lógicas ('vibe coding') antes de que lleguen a la capa operativa.",
+    title: "Workslop Mitigation Protocols",
+    shortDescription: "Destroys hallucinations before execution.",
+    fullDescription: "Actively inspects the agent's plan to detect and destroy logical hallucinations ('vibe coding') before they reach the operational layer.",
     icon: "ShieldAlert",
     salesforceMapping: "Einstein Trust Layer / Guardrails",
   },
   {
     id: "n5",
-    title: "Matriz de Ejecución AWU",
-    shortDescription: "Unidades de trabajo agénticas validadas.",
-    fullDescription: "El agente no 'usa una herramienta'; ejecuta una Agentic Work Unit (AWU). Acción medible, con ROI cuantificable y resultado equivalente a operador experto.",
+    title: "AWU Execution Matrix",
+    shortDescription: "Validated agentic work units.",
+    fullDescription: "The agent does not 'use a tool'; it executes an Agentic Work Unit (AWU). Measurable action, with quantifiable ROI and results equivalent to an expert operator.",
     icon: "Activity",
     salesforceMapping: "Apex Actions / Flow Automation",
   },
   {
     id: "n6",
-    title: "Equivalencia Funcional",
-    shortDescription: "Validación matemática de resultados.",
-    fullDescription: "Antes de ejecutar cualquier AWU, valida que el resultado será funcionalmente equivalente al de un experto humano. Inmunidad al workslop.",
+    title: "Functional Equivalence",
+    shortDescription: "Mathematical validation of results.",
+    fullDescription: "Before executing any AWU, validates that the result will be functionally equivalent to that of a human expert. Immunity to workslop.",
     icon: "CheckCircle2",
     salesforceMapping: "Expert-Level Output Validation",
   },
   {
     id: "n7",
     title: "Machine Unlearning < 100ms",
-    shortDescription: "Obliteración selectiva GDPR/HIPAA.",
-    fullDescription: "Borra datos de modelos entrenados en < 100ms sin reentrenamiento completo. Cumplimiento instantáneo con privacidad diferencial.",
+    shortDescription: "Selective GDPR/HIPAA obliteration.",
+    fullDescription: "Erases data from trained models in < 100ms without full retraining. Instant compliance with differential privacy.",
     icon: "ZapOff",
     salesforceMapping: "Einstein Trust Layer / Privacy Differential",
   },
   {
     id: "n8",
-    title: "Calibración HTC/AUQ",
-    shortDescription: "Cuantificación de incertidumbre.",
-    fullDescription: "Verifica confianza empírica del modelo antes de ejecutar. Rechaza predicciones con alta incertidumbre. 94% accuracy garantizada.",
+    title: "HTC/AUQ Calibration",
+    shortDescription: "Uncertainty quantification.",
+    fullDescription: "Verifies empirical confidence of the model before execution. Rejects predictions with high uncertainty. 94% accuracy guaranteed.",
     icon: "BarChart3",
     salesforceMapping: "FARE Auditing / Confidence Calibration",
   },
@@ -87,84 +87,84 @@ export interface JourneyStep {
 
 export const JOURNEY_MAP: JourneyStep[] = [
   {
-    phase: "Configuración Inicial",
+    phase: "Initial Configuration",
     duration: "2-3 min",
     items: [
       {
-        title: "Verificar Salesforce",
-        description: "Confirmar conexión con Salesforce Org y Data Cloud.",
+        title: "Verify Salesforce",
+        description: "Confirm connection to Salesforce Org and Data Cloud.",
         critical: true,
         techDetails: "API Version 60.0, OAuth 2.0 JWT Bearer Flow."
       },
       {
-        title: "Cargar Datos",
-        description: "Importar dataset de prueba para los casos de uso.",
+        title: "Load Data",
+        description: "Import test dataset for use cases.",
         critical: false,
         techDetails: "Data Cloud Ingestion API, 5k records."
       },
       {
-        title: "Inicializar Motor",
-        description: "Arrancar el motor ToT y cargar reglas de negocio.",
+        title: "Initialize Engine",
+        description: "Start the ToT engine and load business rules.",
         critical: true,
         techDetails: "Node.js cluster worker initialization."
       }
     ]
   },
   {
-    phase: "Demostración en Vivo",
+    phase: "Live Demonstration",
     duration: "8-10 min",
     items: [
       {
-        title: "Aprobación de Préstamo",
-        description: "Ejecución de AWU para evaluación financiera en tiempo real.",
+        title: "Loan Approval",
+        description: "AWU execution for real-time financial evaluation.",
         critical: true,
-        techDetails: "Vector de Intención -> ToT -> Apex Action."
+        techDetails: "Intention Vector -> ToT -> Apex Action."
       },
       {
-        title: "Recomendación Personalizada",
-        description: "Análisis de comportamiento y matching con catálogo Data Cloud.",
+        title: "Personalized Recommendation",
+        description: "Behavioral analysis and matching with Data Cloud catalog.",
         critical: true,
         techDetails: "Semantic Search via Vector Base."
       },
       {
         title: "Machine Unlearning",
-        description: "Borrado selectivo de datos bajo demanda (GDPR).",
+        description: "Selective on-demand data deletion (GDPR).",
         critical: true,
         techDetails: "SISA Protocol implementation < 100ms."
       }
     ]
   },
   {
-    phase: "Métricas y Validación",
+    phase: "Metrics and Validation",
     duration: "3-5 min",
     items: [
       {
-        title: "Dashboard de Performance",
-        description: "Visualización de latencia p95 y throughput.",
+        title: "Performance Dashboard",
+        description: "Visualization of p95 latency and throughput.",
         critical: false,
         techDetails: "Real-time metrics via Prometheus/Grafana."
       },
       {
-        title: "Inmunidad al Workslop",
-        description: "Prueba de inyección de ruido para validar mitigación.",
+        title: "Workslop Immunity",
+        description: "Noise injection test to validate mitigation.",
         critical: true,
         techDetails: "Hallucination score check audit log."
       }
     ]
   },
   {
-    phase: "Q&A y Profundización",
+    phase: "Q&A and Deep Dive",
     duration: "5-7 min",
     items: [
       {
-        title: "Preguntas Técnicas",
-        description: "Sesión de preguntas y respuestas con los jueces.",
+        title: "Technical Questions",
+        description: "Q&A session with the judges.",
         critical: false,
         techDetails: "Whiteboard architecture session."
       },
       {
-        title: "Revisión de Código",
-        description: "Inspección de implementación Apex/Node si es requerida.",
+        title: "Code Review",
+        description: "Inspection of Apex/Node implementation if required.",
         critical: false,
         techDetails: "GitHub Repository Deep Dive."
       }
@@ -183,27 +183,27 @@ export interface Requirement {
 
 export const REQUIREMENTS: Requirement[] = [
   {
-    category: "Infraestructura Técnica",
+    category: "Technical Infrastructure",
     items: [
       { label: "Salesforce Org", description: "Enterprise/Unlimited with Agentforce enabled.", status: 'required' },
       { label: "Data Cloud", description: "Configured and connected to external sources.", status: 'required' },
-      { label: "Internet Fibra", description: "Conexión estable de baja latencia.", status: 'required' },
-      { label: "Laptop Pro", description: "Mínimo 16GB RAM para entorno de desarrollo local.", status: 'recommended' }
+      { label: "Fiber Internet", description: "Stable, low-latency connection.", status: 'required' },
+      { label: "Pro Laptop", description: "Minimum 16GB RAM for local development environment.", status: 'recommended' }
     ]
   },
   {
-    category: "Software & Credenciales",
+    category: "Software & Credentials",
     items: [
-      { label: "ALRO Deployed", description: "Instancia activa en Cloud Run.", status: 'required' },
-      { label: "Secretos .env", description: "GEMINI_API_KEY y SF_CLIENT_ID configurados.", status: 'required' },
-      { label: "Dashboard Ready", description: "Pestañas pre-cargadas en el navegador.", status: 'recommended' }
+      { label: "ALRO Deployed", description: "Active instance on Cloud Run.", status: 'required' },
+      { label: "Secrets .env", description: "GEMINI_API_KEY and SF_CLIENT_ID configured.", status: 'required' },
+      { label: "Dashboard Ready", description: "Pre-loaded tabs in the browser.", status: 'recommended' }
     ]
   }
 ];
 
 export const DEPLOYMENT_STEPS = [
-  { phase: "Pre-Evento", steps: ["Check connectivity", "Sync Data Cloud", "Dry run demo"] },
-  { phase: "Día del Evento", steps: ["Verify secrets", "Clear cache", "Open all tabs"] },
-  { phase: "Durante Demo", steps: ["Reset state", "Run AWU", "Show logs"] },
+  { phase: "Pre-Event", steps: ["Check connectivity", "Sync Data Cloud", "Dry run demo"] },
+  { phase: "Event Day", steps: ["Verify secrets", "Clear cache", "Open all tabs"] },
+  { phase: "During Demo", steps: ["Reset state", "Run AWU", "Show logs"] },
   { phase: "Post-Demo", steps: ["Export logs", "Follow up", "Close instance"] }
 ];

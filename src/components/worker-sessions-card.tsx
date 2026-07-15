@@ -17,6 +17,7 @@ interface Worker {
 
 export function WorkerSessionsCard() {
   const [selectedWorker, setSelectedWorker] = useState<Worker | null>(null);
+  const [syncStatus, setSyncStatus] = useState<string | null>(null);
   const [workers, setWorkers] = useState<Worker[]>([
     {
       id: "sofia",
@@ -125,14 +126,7 @@ export function WorkerSessionsCard() {
 
   return (
     <div
-      className="p-3.5 rounded-2xl h-full flex flex-col"
-      style={{
-        background: "rgba(240, 246, 255, 0.48)",
-        backdropFilter: "blur(24px)",
-        WebkitBackdropFilter: "blur(24px)",
-        border: "1px solid rgba(255, 255, 255, 0.7)",
-        boxShadow: "14px 14px 32px rgba(150, 175, 205, 0.32), -14px -14px 32px rgba(255, 255, 255, 0.95), inset 3px 3px 6px rgba(255, 255, 255, 0.8), inset -3px -3px 6px rgba(150, 175, 205, 0.15)",
-      }}
+      className="p-3.5 rounded-2xl h-full flex flex-col glass-neo-card"
     >
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-xs font-bold uppercase tracking-wider text-[#1e3a8a] font-display flex items-center gap-2">
@@ -274,10 +268,19 @@ export function WorkerSessionsCard() {
                 </div>
               </div>
 
+              {syncStatus && (
+                <div className="mb-3 p-2 bg-blue-50 text-blue-700 text-[10px] font-bold rounded-lg text-center animate-pulse">
+                  {syncStatus}
+                </div>
+              )}
+
               <div className="mt-5 flex gap-2">
                 <button
                   className="flex-1 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-[#1e3a8a] text-white text-[11px] font-bold uppercase shadow-sm hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-1.5"
-                  onClick={() => alert(`Sincronización manual forzada para ${selectedWorker.name}`)}
+                  onClick={() => {
+                    setSyncStatus(`Syncing with ${selectedWorker.name}...`);
+                    setTimeout(() => setSyncStatus(null), 3000);
+                  }}
                 >
                   <RefreshCw className="w-3.5 h-3.5 animate-spin" style={{ animationDuration: "5s" }} /> Sync Session
                 </button>

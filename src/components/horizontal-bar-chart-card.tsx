@@ -25,11 +25,11 @@ export function HorizontalBarChartCard() {
 
   return (
     <motion.div
-      className="p-6 bg-[#e2ede9] rounded-3xl shadow-[12px_12px_24px_#bdc9c4,-12px_-12px_24px_#ffffff]"
+      className="p-6 rounded-3xl glass-neo-card"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      whileHover={{ boxShadow: "16px 16px 32px #bdc9c4, -16px -16px 32px #ffffff" }}
+      whileHover={{ scale: 1.01 }}
     >
       <motion.div
         className="mb-6"
@@ -38,10 +38,10 @@ export function HorizontalBarChartCard() {
         transition={{ delay: 0.2 }}
       >
         <h2 className="text-[#1d3a2f] mb-1">Product Revenue</h2>
-        <p className="text-[#7a9a8d] text-sm">Top performing products</p>
+        <p className="text-[#7a9a8d] text-sm font-semibold">Top performing products</p>
       </motion.div>
 
-      <div className="h-[400px] p-4 bg-[#e2ede9] rounded-2xl shadow-[inset_6px_6px_12px_#bdc9c4,inset_-6px_-6px_12px_#ffffff]">
+      <div className="h-[400px] p-4 rounded-2xl glass-neo-inset">
         <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="100%" style={{ overflow: "visible" }}>
           {[0, 0.25, 0.5, 0.75, 1].map((t) => {
             const x = PL + t * CW;
@@ -82,11 +82,11 @@ export function HorizontalBarChartCard() {
         {DATA.map((item, index) => (
           <motion.div
             key={item.category}
-            className="p-3 bg-[#e2ede9] rounded-xl text-center shadow-[4px_4px_8px_#bdc9c4,-4px_-4px_8px_#ffffff]"
+            className="p-3 rounded-xl text-center glass-neo-inset"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3 + index * 0.1 }}
-            whileHover={{ scale: 1.1, boxShadow: "6px 6px 12px #bdc9c4, -6px -6px 12px #ffffff" }}
+            whileHover={{ scale: 1.1 }}
           >
             <div className="w-3 h-3 rounded-full mx-auto mb-2" style={{ backgroundColor: COLORS[index] }} />
             <p className="text-[#7a9a8d] text-xs mb-1">{item.category.split(" ")[1]}</p>

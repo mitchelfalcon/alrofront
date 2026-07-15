@@ -59,14 +59,7 @@ export function RecentActivityLive() {
 
   return (
     <div
-      className="p-3.5 rounded-2xl flex flex-col justify-between min-h-[210px] h-full relative overflow-hidden"
-      style={{
-        background: "rgba(240, 246, 255, 0.48)",
-        backdropFilter: "blur(24px)",
-        WebkitBackdropFilter: "blur(24px)",
-        border: "1px solid rgba(255, 255, 255, 0.7)",
-        boxShadow: "14px 14px 32px rgba(150, 175, 205, 0.32), -14px -14px 32px rgba(255, 255, 255, 0.95), inset 3px 3px 6px rgba(255, 255, 255, 0.8), inset -3px -3px 6px rgba(150, 175, 205, 0.15)",
-      }}
+      className="p-3.5 rounded-2xl flex flex-col justify-between min-h-[210px] h-full relative overflow-hidden glass-neo-card"
     >
       {/* Header section with Recent Activity title */}
       <div className="flex items-center justify-between mb-1.5">
@@ -128,7 +121,7 @@ export function RecentActivityLive() {
                   {act.type === "warning" ? (
                     <ArrowDownRight className="w-3.5 h-3.5 text-rose-500" />
                   ) : (
-                    <ArrowUpRight className={`w-3.5 h-3.5 ${act.type === "info" ? "text-sky-500" : "text-emerald-500"}`} />
+                    <ArrowUpRight className={`w-3.5 h-3.5 ${act.type === "info" ? "text-sky-500" : "text-blue-500"}`} />
                   )}
                 </div>
 

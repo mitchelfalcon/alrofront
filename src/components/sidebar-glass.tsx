@@ -45,10 +45,10 @@ interface SidebarProps {
 }
 
 const AURA_NODES_LOCAL = [
-  { id: "facturacion", name: "Facturación", color: "#10b981" },
-  { id: "casos",       name: "Casos",       color: "#3b82f6" },
-  { id: "actividades", name: "Actividades", color: "#8b5cf6" },
-  { id: "ledger",      name: "Ledger",      color: "#f59e0b" },
+  { id: "facturacion", name: "Billing", color: "#3b82f6" },
+  { id: "casos",       name: "Cases",       color: "#3b82f6" },
+  { id: "actividades", name: "Activities", color: "#2563eb" },
+  { id: "ledger",      name: "Ledger",      color: "#1d4ed8" },
   { id: "voz",         name: "Voz",         color: "#06b6d4" },
 ];
 
@@ -81,12 +81,12 @@ export function SidebarGlass({
   ];
 
   const tools = [
-    { id: "cursor",   icon: MousePointer,  label: "Selección precisa" },
-    { id: "add-kpi",  icon: Plus,          label: "+KPI — Nueva Entidad" },
-    { id: "link",     icon: GitBranch,     label: "Enlazar Flujo" },
-    { id: "play",     icon: Play,          label: "Ejecutar / Recalcular Grafo" },
-    { id: "search",   icon: Search,        label: "Buscar KPIs / Incidencias" },
-    { id: "settings", icon: Settings,      label: "Umbrales · Confianza 94%" },
+    { id: "cursor",   icon: MousePointer,  label: "Precise Selection" },
+    { id: "add-kpi",  icon: Plus,          label: "+KPI — New Entity" },
+    { id: "link",     icon: GitBranch,     label: "Link Flow" },
+    { id: "play",     icon: Play,          label: "Execute / Recalculate Graph" },
+    { id: "search",   icon: Search,        label: "Search KPIs / Issues" },
+    { id: "settings", icon: Settings,      label: "Thresholds · Confidence 94%" },
   ];
 
   const filteredNodes = ARCHITECTURE_NODES.filter(node =>
@@ -315,7 +315,7 @@ export function SidebarGlass({
                   style={{
                     boxShadow: "2px 2px 5px rgba(165,185,210,0.2), -2px -2px 5px rgba(255,255,255,0.95)"
                   }}
-                  title="Alertas"
+                  title="Alerts"
                 >
                   <Bell className="w-3.5 h-3.5 text-blue-900" />
                   <span className="absolute -top-1 -right-1 w-3.5 h-3.5 bg-rose-500 rounded-full text-white text-[8px] flex items-center justify-center font-bold">3</span>
@@ -328,7 +328,7 @@ export function SidebarGlass({
                   style={{
                     boxShadow: "2px 2px 5px rgba(165,185,210,0.2), -2px -2px 5px rgba(255,255,255,0.95)"
                   }}
-                  title="Ajustes de Systema"
+                  title="System Settings"
                 >
                   <Settings className="w-3.5 h-3.5 text-blue-900" />
                 </button>
@@ -345,7 +345,7 @@ export function SidebarGlass({
                     transition={{ duration: 0.2 }}
                     className="space-y-5"
                   >
-                {/* Menú de Colores Live */}
+                {/* Live Color Status Menu */}
                 <div className="space-y-2 text-left bg-white/20 p-2.5 rounded-2xl border border-white/40">
                   <p className="text-[9px] font-bold uppercase tracking-wider text-[#5b7290]" style={{ fontFamily: "'Segoe UI', sans-serif" }}>
                     Aura Live Status
@@ -358,10 +358,10 @@ export function SidebarGlass({
                   </div>
                 </div>
 
-                {/* 1. Semáforos de Red */}
+                {/* 1. Status Lights */}
                 <div className="space-y-2 text-left">
                   <p className="text-[9px] font-bold uppercase tracking-wider text-[#5b7290]" style={{ fontFamily: "'Segoe UI', sans-serif" }}>
-                    Semáforos de Red
+                    Status Lights
                   </p>
                   <div className="grid grid-cols-2 gap-2">
                     {/* Red / Error */}
@@ -374,7 +374,7 @@ export function SidebarGlass({
                           ? "inset 1px 1px 2px rgba(255,255,255,0.8), 2px 2px 5px rgba(239, 68, 68, 0.08)"
                           : "2px 2px 5px rgba(165, 185, 210, 0.1), -1px -1px 3px rgba(255, 255, 255, 0.8)",
                       }}
-                      title="Haz clic para alternar Estado VETO"
+                      title="Click to toggle Safety Veto state"
                     >
                       <span className="relative flex h-2 w-2 flex-shrink-0">
                         {hasRedError && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" />}
@@ -383,23 +383,23 @@ export function SidebarGlass({
                       <span className={`text-[9px] font-bold font-mono ${hasRedError ? "text-rose-600" : "text-rose-400/75"}`}>🔴 ERROR</span>
                     </button>
 
-                    {/* Yellow / Warn */}
+                    {/* Blue-Slate / Warn */}
                     <button
                       onClick={() => setVoiceActive(!voiceActive)}
                       className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl border transition-all text-left bg-white/45"
                       style={{
-                        borderColor: voiceActive ? "rgba(245, 158, 11, 0.2)" : "rgba(255, 255, 255, 0.7)",
+                        borderColor: voiceActive ? "rgba(14, 165, 233, 0.2)" : "rgba(255, 255, 255, 0.7)",
                         boxShadow: voiceActive
-                          ? "inset 1px 1px 2px rgba(255,255,255,0.8), 2px 2px 5px rgba(245, 158, 11, 0.08)"
+                          ? "inset 1px 1px 2px rgba(255,255,255,0.8), 2px 2px 5px rgba(14, 165, 233, 0.08)"
                           : "2px 2px 5px rgba(165, 185, 210, 0.1), -1px -1px 3px rgba(255, 255, 255, 0.8)",
                       }}
-                      title="Haz clic para alternar Entrada de Voz"
+                      title="Click to toggle Voice Input state"
                     >
                       <span className="relative flex h-2 w-2 flex-shrink-0">
-                        {voiceActive && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />}
-                        <span className={`relative inline-flex rounded-full h-2 w-2 ${voiceActive ? "bg-amber-500" : "bg-amber-500/30"}`} />
+                        {voiceActive && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />}
+                        <span className={`relative inline-flex rounded-full h-2 w-2 ${voiceActive ? "bg-sky-500" : "bg-sky-500/30"}`} />
                       </span>
-                      <span className={`text-[9px] font-bold font-mono ${voiceActive ? "text-amber-600" : "text-amber-400/75"}`}>🟡 WARN</span>
+                      <span className={`text-[9px] font-bold font-mono ${voiceActive ? "text-sky-600" : "text-sky-400/75"}`}>🔵 WARN</span>
                     </button>
 
                     {/* Blue / Info */}
@@ -417,33 +417,33 @@ export function SidebarGlass({
                       <span className={`text-[9px] font-bold font-mono ${!hasRedError ? "text-sky-600" : "text-sky-400/75"}`}>🔵 INFO</span>
                     </div>
 
-                    {/* Green / OK */}
+                    {/* Blue / OK */}
                     <div
                       className="flex items-center gap-1.5 px-2 py-1.5 rounded-xl border text-left bg-white/45"
                       style={{
-                        borderColor: !hasRedError ? "rgba(16, 185, 129, 0.2)" : "rgba(255, 255, 255, 0.7)",
+                        borderColor: !hasRedError ? "rgba(37, 99, 235, 0.2)" : "rgba(255, 255, 255, 0.7)",
                         boxShadow: "2px 2px 5px rgba(165, 185, 210, 0.1), -1px -1px 3px rgba(255, 255, 255, 0.8)"
                       }}
                     >
                       <span className="relative flex h-2 w-2 flex-shrink-0">
-                        {!hasRedError && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />}
-                        <span className={`relative inline-flex rounded-full h-2 w-2 ${!hasRedError ? "bg-emerald-500" : "bg-emerald-500/30"}`} />
+                        {!hasRedError && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75" />}
+                        <span className={`relative inline-flex rounded-full h-2 w-2 ${!hasRedError ? "bg-blue-500" : "bg-blue-500/30"}`} />
                       </span>
-                      <span className={`text-[9px] font-bold font-mono ${!hasRedError ? "text-emerald-600" : "text-emerald-400/75"}`}>🟢 OK</span>
+                      <span className={`text-[9px] font-bold font-mono ${!hasRedError ? "text-blue-600" : "text-blue-400/75"}`}>🔵 OK</span>
                     </div>
                   </div>
                 </div>
 
-                {/* 2. Indicadores GDS */}
+                {/* 2. GDS Indicators */}
                 <div className="space-y-2 text-left">
                   <p className="text-[9px] font-bold uppercase tracking-wider text-[#5b7290]" style={{ fontFamily: "'Segoe UI', sans-serif" }}>
-                    Indicadores GDS
+                    GDS Indicators
                   </p>
                   <div className="space-y-1.5">
                     {[
-                      { id: "flux",    label: "FLUX",    sub: "AWU_Ledger__c",  color: "#10b981" },
+                      { id: "flux",    label: "FLUX",    sub: "AWU_Ledger__c",  color: "#3b82f6" },
                       { id: "intent",  label: "INTENT",  sub: "IntentVector",   color: "#3b82f6" },
-                      { id: "formula", label: "FORMULA", sub: "Colab Engine",   color: "#8b5cf6" },
+                      { id: "formula", label: "FORMULA", sub: "Colab Engine",   color: "#3b82f6" },
                     ].map(led => (
                       <div 
                         key={led.id} 
@@ -464,10 +464,10 @@ export function SidebarGlass({
                   </div>
                 </div>
 
-                {/* 3. Organización / Departamento */}
+                {/* 3. Active Department */}
                 <div className="space-y-2 text-left">
                   <p className="text-[9px] font-bold uppercase tracking-wider text-[#5b7290]" style={{ fontFamily: "'Segoe UI', sans-serif" }}>
-                    Departamento Activo
+                    Active Department
                   </p>
                   <div className="space-y-1 bg-white/30 p-1.5 rounded-2xl border border-white/40 max-h-[170px] overflow-y-auto pr-1">
                     {orgDepts.map(dept => {
@@ -505,18 +505,18 @@ export function SidebarGlass({
                   <Search className="w-3.5 h-3.5 text-[#009fdb] flex-shrink-0" />
                   <input 
                     type="text" 
-                    placeholder="Buscar componente..." 
+                    placeholder="Search component..." 
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="bg-transparent text-xs text-blue-950 placeholder-blue-300 outline-none w-full font-semibold"
                     style={{ fontFamily: "'Segoe UI', sans-serif" }}
                   />
                 </div>
-
+ 
                 {/* 2. Architecture Nodes navigation list */}
                 <div className="space-y-2 text-left">
                   <p className="text-[9px] font-bold uppercase tracking-wider text-[#5b7290] pl-1" style={{ fontFamily: "'Segoe UI', sans-serif" }}>
-                    Nodos de Arquitectura ({filteredNodes.length})
+                    Architecture Nodes ({filteredNodes.length})
                   </p>
                   <div className="space-y-1.5 max-h-[350px] overflow-y-auto pr-1">
                     {filteredNodes.map((node) => {
@@ -566,8 +566,8 @@ export function SidebarGlass({
             AMB_PROD_DEMO_01
           </p>
           <div className="flex items-center gap-1.5 justify-center">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
-            <span className="text-[8px] font-bold text-[#10b981]" style={{ fontFamily: "'Segoe UI', sans-serif" }}>SECURE SYSTEM</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
+            <span className="text-[8px] font-bold text-[#3b82f6]" style={{ fontFamily: "'Segoe UI', sans-serif" }}>SECURE SYSTEM</span>
           </div>
         </div>
         </motion.div>

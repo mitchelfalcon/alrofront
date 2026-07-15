@@ -67,24 +67,21 @@ const transactions = [
 export function TransactionsHistory() {
   return (
     <motion.div
-      className="p-6 bg-[#e2ede9] rounded-3xl
-        shadow-[12px_12px_24px_#bdc9c4,-12px_-12px_24px_#ffffff]"
+      className="p-6 rounded-3xl glass-neo-card"
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.6 }}
-      whileHover={{ boxShadow: "16px 16px 32px #bdc9c4, -16px -16px 32px #ffffff" }}
+      whileHover={{ scale: 1.01 }}
     >
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <p className="text-[#7a9a8d] text-xs font-medium uppercase tracking-wider mb-1">Recent</p>
+          <p className="text-[#7a9a8d] text-xs font-semibold uppercase tracking-wider mb-1">Recent</p>
           <h3 className="text-[#1d3a2f] text-xl font-bold">Transactions History</h3>
         </div>
         <motion.button
-          className="p-2 bg-[#e2ede9] rounded-xl
-            shadow-[4px_4px_8px_#bdc9c4,-4px_-4px_8px_#ffffff]"
-          whileHover={{ scale: 1.1, boxShadow: "6px 6px 12px #bdc9c4, -6px -6px 12px #ffffff" }}
-          whileTap={{ boxShadow: "inset 3px 3px 6px #bdc9c4, inset -3px -3px 6px #ffffff" }}
+          className="p-2 rounded-xl glass-neo-inset"
+          whileHover={{ scale: 1.1 }}
         >
           <MoreHorizontal className="w-4 h-4 text-[#4a7268]" />
         </motion.button>
@@ -93,7 +90,7 @@ export function TransactionsHistory() {
       {/* Column labels */}
       <div className="grid grid-cols-[2fr_1fr_1fr_1fr] gap-2 px-2 mb-3">
         {["Merchant", "Date", "Amount", "Change"].map((h) => (
-          <p key={h} className="text-[#7a9a8d] text-xs font-medium uppercase tracking-wider">{h}</p>
+          <p key={h} className="text-[#7a9a8d] text-xs font-semibold uppercase tracking-wider">{h}</p>
         ))}
       </div>
 
@@ -103,14 +100,12 @@ export function TransactionsHistory() {
           <motion.div
             key={tx.id}
             className="grid grid-cols-[2fr_1fr_1fr_1fr] gap-2 items-center
-              p-3 bg-[#e2ede9] rounded-2xl cursor-pointer
-              shadow-[4px_4px_8px_#bdc9c4,-4px_-4px_8px_#ffffff]"
+              p-3 rounded-2xl cursor-pointer glass-neo-inset"
             initial={{ opacity: 0, x: -16 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.65 + index * 0.08 }}
             whileHover={{
               x: 4,
-              boxShadow: "6px 6px 14px #bdc9c4, -6px -6px 14px #ffffff",
             }}
             whileTap={{ scale: 0.98 }}
           >
@@ -139,8 +134,7 @@ export function TransactionsHistory() {
             {/* Change badge */}
             <div className="flex items-center">
               <motion.span
-                className={`flex items-center gap-0.5 px-2 py-1 rounded-lg text-xs font-semibold
-                  bg-[#e2ede9] shadow-[inset_2px_2px_4px_#bdc9c4,inset_-2px_-2px_4px_#ffffff]
+                className={`flex items-center gap-0.5 px-2 py-1 rounded-lg text-xs font-semibold glass-neo-inset
                   ${tx.positive ? "text-[#009970]" : "text-[#ef4444]"}`}
                 whileHover={{ scale: 1.05 }}
               >

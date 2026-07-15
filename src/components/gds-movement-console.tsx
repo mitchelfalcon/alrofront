@@ -43,38 +43,38 @@ const GDS_SECTIONS: GdsSectionDef[] = [
     algos: [
       {
         id: "dijkstra", label: "Dijkstra Shortest Path", emoji: "→",
-        desc: "Cálculo de la ruta con menor peso/costo entre dos puntos de la red.",
+        desc: "Calculation of the path with the lowest weight/cost between two points on the network.",
         formula: ["d(v) = min   [ d(u) + w(u,v) ]", "       u∈adj(v)"],
-        formulaNote: "d(v) = distancia mínima acumulada al nodo v. w(u,v) = peso del arco u→v.",
+        formulaNote: "d(v) = cumulative minimum distance to node v. w(u,v) = weight of edge u→v.",
         complexity: "O((V+E) log V)", tags: ["weighted", "directed", "optimal"],
       },
       {
         id: "astar", label: "A* (A-Star) Algorithm", emoji: "★",
-        desc: "Búsqueda heurística optimizada para grafos con coordenadas espaciales.",
-        formula: ["f(n) = g(n) + h(n)", "", "g(n) = costo exacto desde origen", "h(n) = heurística admisible estimada"],
-        formulaNote: "Garantiza optimalidad si h(n) es admisible (nunca sobreestima).",
+        desc: "Heuristic search optimized for graphs with spatial coordinates.",
+        formula: ["f(n) = g(n) + h(n)", "", "g(n) = exact cost from origin", "h(n) = estimated admissible heuristic"],
+        formulaNote: "Guarantees optimality if h(n) is admissible (never overestimates).",
         complexity: "O(E log V) best-case", tags: ["heuristic", "spatial", "optimal"],
       },
       {
         id: "yens", label: "Yen's K-Shortest Paths", emoji: "⑂",
-        desc: "Cálculo de K rutas alternativas y secundarias de contingencia.",
-        formula: ["K", "∪  P_k  donde P_k = k-ésima ruta más corta", "k=1"],
-        formulaNote: "Utiliza eliminación iterativa de nodos sobre Dijkstra base.",
+        desc: "Calculation of K alternative and secondary contingency paths.",
+        formula: ["K", "∪  P_k  where P_k = k-th shortest path", "k=1"],
+        formulaNote: "Uses iterative node elimination on top of base Dijkstra.",
         complexity: "O(K · V · (E + V log V))", tags: ["k-paths", "redundancy"],
       },
       {
         id: "bfsdfs", label: "BFS & DFS", emoji: "⊞",
-        desc: "Exploración de red por niveles (BFS) y por profundidad (DFS).",
+        desc: "Network exploration by levels (BFS) and depth (DFS).",
         formula: ["BFS: FIFO queue  — O(V+E)", "DFS: LIFO stack  — O(V+E)", "", "visited[v] ← true on first touch"],
-        formulaNote: "BFS garantiza distancia mínima en grafos no ponderados.",
+        formulaNote: "BFS guarantees minimum distance in unweighted graphs.",
         complexity: "O(V+E)", tags: ["unweighted", "traversal"],
       },
       {
         id: "sssp", label: "Single Source Shortest Path", emoji: "⊙",
-        desc: "Evaluación de distancia desde un nodo raíz hacia toda la red.",
+        desc: "Distance evaluation from a root node to the entire network.",
         formula: ["δ(s, v) = min { w(p) : s ↝ v }", "         p∈Paths(s,v)"],
-        formulaNote: "δ(s,v) = peso mínimo de todos los caminos simples s→v.",
-        complexity: "O(V·E) con Bellman-Ford", tags: ["single-source", "negative-weights"],
+        formulaNote: "δ(s,v) = minimum weight of all simple paths s→v.",
+        complexity: "O(V·E) with Bellman-Ford", tags: ["single-source", "negative-weights"],
       },
     ],
   },
@@ -84,117 +84,117 @@ const GDS_SECTIONS: GdsSectionDef[] = [
     algos: [
       {
         id: "betweenness", label: "Betweenness Centrality", emoji: "⬡",
-        desc: "Control y detección de cuellos de botella críticos en la red.",
+        desc: "Control and detection of critical bottlenecks in the network.",
         formula: [
           "         σ_st(v)",
           "C_B(v) = Σ ───────",
           "       s≠v≠t   σ_st",
         ],
-        formulaNote: "σ_st = total de rutas más cortas entre s y t. σ_st(v) = las que pasan por v.",
+        formulaNote: "σ_st = total shortest paths between s and t. σ_st(v) = paths that pass through v.",
         complexity: "O(V·E)", tags: ["bottleneck", "bridge-detection"],
       },
       {
         id: "pagerank", label: "PageRank & ArticleRank", emoji: "◈",
-        desc: "Relevancia estructural basada en calidad y cantidad de enlaces entrantes.",
+        desc: "Structural relevance based on quality and quantity of incoming links.",
         formula: [
           "         (1−d)          PR(u)",
           "PR(v) = ─────── + d · Σ ─────",
           "           N         u∈in(v) L(u)",
         ],
-        formulaNote: "d = factor de amortiguación (≈0.85). L(u) = número de enlaces salientes de u.",
-        complexity: "O(V+E) por iteración", tags: ["authority", "hub", "convergence"],
+        formulaNote: "d = damping factor (≈0.85). L(u) = outgoing link count of u.",
+        complexity: "O(V+E) per iteration", tags: ["authority", "hub", "convergence"],
       },
       {
         id: "degree", label: "Degree Centrality", emoji: "◉",
-        desc: "Conteo de conexiones directas — subdividido en In-degree / Out-degree.",
+        desc: "Direct connection counts - divided into In-degree and Out-degree.",
         formula: [
           "k_i = Σ A_ij         (total)",
           "       j",
           "",
-          "k_i^in  = Σ A_ji    (entrante)",
-          "k_i^out = Σ A_ij    (saliente)",
+          "k_i^in  = Σ A_ji    (incoming)",
+          "k_i^out = Σ A_ij    (outgoing)",
         ],
-        formulaNote: "A = matriz de adyacencia. k_i normalizado: C_D = k_i / (n−1).",
-        complexity: "O(V+E)", tags: ["in-degree", "out-degree"],
+        formulaNote: "A = adjacency matrix. Normalized k_i: C_D = k_i / (n−1).",
+        complexity: "O(V+E)", tags: ["incoming", "outgoing"],
       },
       {
         id: "closeness", label: "Closeness Centrality", emoji: "⊛",
-        desc: "Velocidad de propagación de la información desde un nodo al resto.",
+        desc: "Propagation speed of information from one node to the rest.",
         formula: [
           "           n − 1",
           "C_C(v) = ──────────────",
           "          Σ d(v, u)",
           "         u≠v",
         ],
-        formulaNote: "d(v,u) = distancia del camino más corto. Mayor C_C = propagación más rápida.",
+        formulaNote: "d(v,u) = shortest path distance. Higher C_C = faster propagation.",
         complexity: "O(V·(V+E))", tags: ["propagation", "efficiency"],
       },
     ],
   },
   {
     id: "community", label: "Community Detection", short: "Clusters",
-    Icon: Users, color: "#8b5cf6",
+    Icon: Users, color: "#1d4ed8",
     algos: [
       {
         id: "lpa", label: "Label Propagation Algorithm", emoji: "⬤",
-        desc: "Difusión convergente de etiquetas para descubrir clústeres naturales.",
+        desc: "Convergent label propagation for discovering natural clusters.",
         formula: [
           "label(v) ← argmax  | { u∈N(v) : label(u)=c } |",
           "              c∈L",
           "",
-          "Converge cuando ∀v: label(v) = mayoría vecinos",
+          "Converges when ∀v: label(v) = majority neighbors",
         ],
-        formulaNote: "Iteración sincrónica o asincrónica. Sin parámetros de entrada.",
-        complexity: "O(V+E) por iteración", tags: ["semi-supervised", "scalable"],
+        formulaNote: "Synchronous or asynchronous iteration. No input parameters required.",
+        complexity: "O(V+E) per iteration", tags: ["semi-supervised", "scalable"],
       },
       {
         id: "louvain", label: "Louvain Modularity", emoji: "⬡",
-        desc: "Detección de comunidades de alta densidad y fuerza relacional.",
+        desc: "High density community detection and relational strength.",
         formula: [
           "     1          k_i · k_j",
           "Q = ─── Σ  [ A_ij − ─────── ] δ(c_i, c_j)",
           "    2m  ij              2m",
         ],
-        formulaNote: "m = arcos totales. k_i = grado del nodo i. δ = 1 si misma comunidad.",
+        formulaNote: "m = total edges. k_i = degree of node i. δ = 1 if in the same community.",
         complexity: "O(V log V)", tags: ["hierarchical", "modularity"],
       },
       {
         id: "wcc", label: "Weakly Connected Components", emoji: "∿",
-        desc: "Aislamiento y detección de subgrafos desconectados del ecosistema.",
+        desc: "Isolation and detection of disconnected subgraphs in the ecosystem.",
         formula: [
           "WCC(G) = { C ⊆ V : ∀u,v∈C ∃ path u↔v }",
           "",
-          "Implementado via Union-Find (DSU):",
-          "find(x) → raíz canónica de x",
-          "union(x,y) → fusionar componentes",
+          "Implemented via Union-Find (DSU):",
+          "find(x) → canonical root of x",
+          "union(x,y) → merge components",
         ],
-        formulaNote: "Ignora dirección de arcos. Útil para detectar islas aisladas.",
+        formulaNote: "Ignores edge direction. Useful for detecting isolated islands.",
         complexity: "O((V+E)·α(V))", tags: ["components", "isolation"],
       },
     ],
   },
   {
     id: "similarity", label: "Similarity & Link Prediction", short: "Similar",
-    Icon: Link2, color: "#f59e0b",
+    Icon: Link2, color: "#3b82f6",
     algos: [
       {
         id: "nodesim", label: "Node Similarity", emoji: "≈",
-        desc: "Algoritmos de Jaccard y Similitud de Coseno para encontrar perfiles gemelos.",
+        desc: "Jaccard and Cosine Similarity algorithms to find twin profiles.",
         formula: [
           "         |N(u) ∩ N(v)|",
           "J(u,v) = ───────────────   (Jaccard)",
           "         |N(u) ∪ N(v)|",
           "",
           "         N(u) · N(v)",
-          "cos(u,v) = ───────────────  (Coseno)",
+          "cos(u,v) = ───────────────  (Cosine)",
           "          ‖N(u)‖ · ‖N(v)‖",
         ],
-        formulaNote: "N(v) = conjunto de vecinos de v. Rango: [0,1]. 1 = idénticos.",
-        complexity: "O(V²·k) donde k = grado promedio", tags: ["jaccard", "cosine", "twins"],
+        formulaNote: "N(v) = neighbor set of v. Range: [0,1]. 1 = identical.",
+        complexity: "O(V²·k) where k = average degree", tags: ["jaccard", "cosine", "twins"],
       },
       {
         id: "linkpred", label: "Link Prediction", emoji: "⇝",
-        desc: "Proyección de nuevas relaciones por Preferential Attachment y Vecinos Comunes.",
+        desc: "Projection of new relationships via Common Neighbors and Preferential Attachment.",
         formula: [
           "PA(x,y) = |Γ(x)| · |Γ(y)|   (Pref. Attach.)",
           "",
@@ -203,18 +203,18 @@ const GDS_SECTIONS: GdsSectionDef[] = [
           "AA(x,y) = Σ     1/log|Γ(z)| (Adamic-Adar)",
           "        z∈Γ(x)∩Γ(y)",
         ],
-        formulaNote: "Γ(x) = vecinos de x. Mayor score = mayor probabilidad de enlace futuro.",
+        formulaNote: "Γ(x) = neighbors of x. Higher score = higher probability of future link.",
         complexity: "O(V·k²)", tags: ["prediction", "attachment", "inference"],
       },
     ],
   },
   {
     id: "ml", label: "Graph Machine Learning", short: "GML",
-    Icon: Cpu, color: "#3b82f6",
+    Icon: Cpu, color: "#1e3a8a",
     algos: [
       {
         id: "embedding", label: "Node Embedding (GraphSAGE / Node2Vec)", emoji: "⬛",
-        desc: "Vectorización de nodos para aprendizaje profundo y transferencia de representación.",
+        desc: "Node vectorization for deep learning and representation transfer.",
         formula: [
           "GraphSAGE:",
           "h_v^k = σ( W^k · CONCAT( h_v^{k-1}, AGG({h_u^{k-1}: u∈N(v)}) ) )",
@@ -222,12 +222,12 @@ const GDS_SECTIONS: GdsSectionDef[] = [
           "Node2Vec (random walk):",
           "P(c_i | f(v)) maximized via skip-gram",
         ],
-        formulaNote: "AGG = función de agregación (mean/max/LSTM). k = profundidad de capas.",
-        complexity: "O(V·d·k) por época", tags: ["GraphSAGE", "Node2Vec", "embeddings"],
+        formulaNote: "AGG = aggregation function (mean/max/LSTM). k = layer depth.",
+        complexity: "O(V·d·k) per epoch", tags: ["GraphSAGE", "Node2Vec", "embeddings"],
       },
       {
         id: "gnn", label: "Graph Neural Networks (GNN) Controller", emoji: "⬡",
-        desc: "Panel de control maestro para redes neuronales de grafos con mensaje passing.",
+        desc: "Master control panel for graph neural networks with message passing.",
         formula: [
           "Message Passing:",
           "m_v^{t+1} = Σ   M_t( h_v^t, h_u^t, e_vu )",
@@ -235,7 +235,7 @@ const GDS_SECTIONS: GdsSectionDef[] = [
           "",
           "h_v^{t+1} = U_t( h_v^t, m_v^{t+1} )",
         ],
-        formulaNote: "M_t = función de mensajes. U_t = función de actualización. T pasos de difusión.",
+        formulaNote: "M_t = message function. U_t = update function. T diffusion steps.",
         complexity: "O(T·E·d²)", tags: ["GCN", "GAT", "message-passing"],
       },
     ],
@@ -250,13 +250,13 @@ const getGStyles = (darkMode?: boolean) => {
       backdropFilter: "blur(24px)",
       WebkitBackdropFilter: "blur(24px)",
       border: "1px solid rgba(255, 255, 255, 0.7)",
-      boxShadow: "10px 10px 24px rgba(150, 175, 205, 0.28), -10px -10px 24px rgba(255, 255, 255, 0.95), inset 2px 2px 5px rgba(255, 255, 255, 0.75), inset -2px -2px 5px rgba(150, 175, 205, 0.12)",
+      boxShadow: "14px 14px 32px rgba(150, 175, 205, 0.32), -14px -14px 32px rgba(255, 255, 255, 0.95), inset 3px 3px 6px rgba(255, 255, 255, 0.8), inset -3px -3px 6px rgba(150, 175, 205, 0.15)",
     } as React.CSSProperties,
     cardDeep: {
-      background: "rgba(238, 245, 255, 0.55)",
-      backdropFilter: "blur(28px)",
-      WebkitBackdropFilter: "blur(28px)",
-      border: "1px solid rgba(255, 255, 255, 0.75)",
+      background: "rgba(240, 246, 255, 0.48)",
+      backdropFilter: "blur(24px)",
+      WebkitBackdropFilter: "blur(24px)",
+      border: "1px solid rgba(255, 255, 255, 0.7)",
       boxShadow: "14px 14px 32px rgba(150, 175, 205, 0.32), -14px -14px 32px rgba(255, 255, 255, 0.95), inset 3px 3px 6px rgba(255, 255, 255, 0.8), inset -3px -3px 6px rgba(150, 175, 205, 0.15)",
     } as React.CSSProperties,
     inset: {
@@ -319,7 +319,7 @@ const FormulaOverlay: React.FC<{
             </div>
             <motion.button
               onClick={onClose}
-              className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ml-3"
+              className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ml-3 cursor-pointer"
               style={G.card}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -336,7 +336,7 @@ const FormulaOverlay: React.FC<{
           <div className="mb-4">
             <span className="text-[9px] uppercase tracking-widest font-mono mb-2 block"
               style={{ color: textMuted }}>
-              Graph Math · Formula Técnica
+              Graph Math · Technical Formula
             </span>
             <div className="p-4 rounded-2xl" style={G.inset}>
               <pre
@@ -351,7 +351,7 @@ const FormulaOverlay: React.FC<{
           {/* Formula note */}
           <div className="p-3 rounded-2xl mb-4" style={G.inset}>
             <span className="text-[9px] uppercase tracking-widest font-mono block mb-1"
-              style={{ color: textMuted }}>Descripción Analítica</span>
+              style={{ color: textMuted }}>Analytical Description</span>
             <p className="text-[11px] leading-relaxed"
               style={{ color: textMutedDark, fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>
               {algo.formulaNote}
@@ -380,7 +380,7 @@ const FormulaOverlay: React.FC<{
         >
           <span className="text-[9px] uppercase tracking-widest font-mono mb-3 block"
             style={{ color: textMuted }}>
-            Inspector de Grafo · Property Sidebar
+            Graph Inspector · Property Sidebar
           </span>
 
           {nodeData ? (
@@ -388,7 +388,7 @@ const FormulaOverlay: React.FC<{
               {/* ID */}
               <div className="mb-3 p-2.5 rounded-xl" style={G.inset}>
                 <span className="text-[9px] uppercase tracking-widest" style={{ color: textMuted }}>Identity</span>
-                <p className="text-base font-bold font-mono mt-0.5" style={{ color: darkMode ? "#2563eb" : "#10b981" }}>
+                <p className="text-base font-bold font-mono mt-0.5 text-[#2563eb]">
                   &lt;id&gt;: {nodeData.id}
                 </p>
               </div>
@@ -399,9 +399,9 @@ const FormulaOverlay: React.FC<{
                 <div className="mt-1">
                   <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full font-mono"
                     style={{
-                      background: darkMode ? "rgba(37,99,235,0.08)" : "rgba(37,99,235,0.08)",
-                      color: darkMode ? "#2563eb" : "#1e3a8a",
-                      border: darkMode ? "1px solid rgba(37,99,235,0.16)" : "1px solid rgba(37,99,235,0.16)"
+                      background: "rgba(37,99,235,0.08)",
+                      color: "#2563eb",
+                      border: "1px solid rgba(37,99,235,0.16)"
                     }}>
                     {nodeData.label}
                   </span>
@@ -422,15 +422,14 @@ const FormulaOverlay: React.FC<{
                         <div className="flex items-center justify-between mb-0.5">
                           <span className="text-[10px] font-bold" style={{ color: textMutedDark }}>{k}</span>
                           <span className="text-[10px] font-mono"
-                            style={{ color: isRisk ? (riskVal > 0.5 ? "#ef4444" : (darkMode ? "#2563eb" : "#1e3a8a")) : textMuted }}>
+                            style={{ color: isRisk ? (riskVal > 0.5 ? "#ef4444" : "#2563eb") : textMuted }}>
                             {String(v)}
                           </span>
                         </div>
                         {isRisk && (
-                          <div className="h-1 rounded-full overflow-hidden"
-                            style={{ background: darkMode ? "rgba(37,99,235,0.08)" : "rgba(37,99,235,0.08)" }}>
+                          <div className="h-1.5 rounded-full overflow-hidden bg-slate-200">
                             <motion.div className="h-full rounded-full"
-                              style={{ background: riskVal > 0.5 ? "#ef4444" : (darkMode ? "#2563eb" : "#1e3a8a") }}
+                              style={{ background: riskVal > 0.5 ? "#ef4444" : "#2563eb" }}
                               initial={{ width: 0 }}
                               animate={{ width: `${riskVal * 100}%` }}
                               transition={{ duration: 0.8, delay: 0.2 }} />
@@ -448,7 +447,7 @@ const FormulaOverlay: React.FC<{
                 <span className="text-lg">⬡</span>
               </div>
               <p className="text-[10px] text-center font-mono" style={{ color: textMuted }}>
-                Selecciona un nodo<br />para inspeccionar
+                Select a node<br />to inspect
               </p>
             </div>
           )}
@@ -493,12 +492,6 @@ export function GdsMovementConsole({
   const shadowCardHover = darkMode 
     ? "8px 8px 16px rgba(165, 185, 210, 0.35), -8px -8px 16px rgba(255, 255, 255, 0.95)"
     : "8px 8px 16px #bdc9c4, -8px -8px 16px #ffffff";
-
-  const LEDS = [
-    { id: "flux",    label: "FLUX",    sub: "AWU_Ledger__c",  color: darkMode ? "#2563eb" : "#1e3a8a" },
-    { id: "intent",  label: "INTENT",  sub: "IntentVector",   color: "#3b82f6" },
-    { id: "formula", label: "FORMULA", sub: "Colab Engine",   color: "#8b5cf6" },
-  ];
 
   const handleAlgoClick = (algo: AlgoDef) => {
     setActiveAlgo(algo);
@@ -630,7 +623,7 @@ export function GdsMovementConsole({
                     <motion.button
                       key={section.id}
                       onClick={() => handleSectionToggle(section.id)}
-                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl flex-shrink-0"
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl flex-shrink-0 cursor-pointer"
                       style={{
                         ...G.card,
                         boxShadow: isOpen
@@ -660,7 +653,7 @@ export function GdsMovementConsole({
               {setShowNetworkCanvas && (
                 <motion.button
                   onClick={() => setShowNetworkCanvas(p => !p)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl flex-shrink-0 font-bold border transition-all duration-200"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl flex-shrink-0 font-bold border transition-all duration-200 cursor-pointer"
                   style={{
                     ...G.card,
                     background: showNetworkCanvas ? "rgba(37, 99, 235, 0.12)" : G.card.background,
@@ -671,10 +664,10 @@ export function GdsMovementConsole({
                   whileTap={{ scale: 0.96 }}
                 >
                   <Network className={`w-3.5 h-3.5 flex-shrink-0 ${showNetworkCanvas ? "animate-pulse" : ""}`}
-                    style={{ color: showNetworkCanvas ? "#2563eb" : "#10b981" }} />
+                    style={{ color: showNetworkCanvas ? "#2563eb" : "#3b82f6" }} />
                   <span className="text-[10px] uppercase tracking-wider font-semibold"
                     style={{ color: showNetworkCanvas ? "#1e3a8a" : "#1e3a8a" }}>
-                    {showNetworkCanvas ? "▲ Ocultar Red" : "▼ Neo Aura 4J"}
+                    {showNetworkCanvas ? "▲ Hide Network" : "▼ Tableau Network"}
                   </span>
                 </motion.button>
               )}
@@ -712,7 +705,7 @@ export function GdsMovementConsole({
                         <motion.button
                           key={algo.id}
                           onClick={() => handleAlgoClick(algo)}
-                          className="text-left p-3 rounded-2xl group"
+                          className="text-left p-3 rounded-2xl group cursor-pointer"
                           style={G.card}
                           initial={{ opacity: 0, y: 6 }}
                           animate={{ opacity: 1, y: 0 }}

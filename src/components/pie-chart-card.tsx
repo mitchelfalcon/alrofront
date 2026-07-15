@@ -2,10 +2,10 @@ import { motion } from "motion/react";
 import { useState } from "react";
 
 const DATA = [
-  { name: "Desktop", value: 4200, color: "#009970" },
-  { name: "Mobile", value: 3100, color: "#00c4a0" },
-  { name: "Tablet", value: 2400, color: "#f59e0b" },
-  { name: "Others", value: 1500, color: "#007a5e" },
+  { name: "Desktop", value: 4200, color: "#1e3a8a" },
+  { name: "Mobile", value: 3100, color: "#2563eb" },
+  { name: "Tablet", value: 2400, color: "#0ea5e9" },
+  { name: "Others", value: 1500, color: "#5b7290" },
 ];
 
 const TOTAL = DATA.reduce((s, d) => s + d.value, 0);
@@ -45,11 +45,11 @@ export function PieChartCard() {
 
   return (
     <motion.div
-      className="p-6 bg-[#e2ede9] rounded-3xl shadow-[12px_12px_24px_#bdc9c4,-12px_-12px_24px_#ffffff]"
+      className="p-6 rounded-3xl glass-neo-card"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      whileHover={{ boxShadow: "16px 16px 32px #bdc9c4, -16px -16px 32px #ffffff" }}
+      whileHover={{ scale: 1.01 }}
     >
       <motion.div
         className="mb-6"
@@ -57,11 +57,11 @@ export function PieChartCard() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.2 }}
       >
-        <h2 className="text-[#1d3a2f] mb-1">Device Distribution</h2>
-        <p className="text-[#7a9a8d] text-sm">Traffic by device type</p>
+        <h2 className="text-[#1e3a8a] mb-1">Device Distribution</h2>
+        <p className="text-[#5b7290] text-sm font-semibold">Traffic by device type</p>
       </motion.div>
 
-      <div className="h-[350px] p-4 bg-[#e2ede9] rounded-2xl shadow-[inset_6px_6px_12px_#bdc9c4,inset_-6px_-6px_12px_#ffffff]">
+      <div className="h-[350px] p-4 rounded-2xl glass-neo-inset">
         <svg viewBox="0 0 260 200" width="100%" height="100%" style={{ overflow: "visible" }}>
           {SEGS.map((seg, i) => (
             <path
@@ -79,16 +79,16 @@ export function PieChartCard() {
               <text x={CX} y={CY - 8} textAnchor="middle" fontSize={22} fontWeight={700} fill={DATA[activeIdx].color}>
                 {((DATA[activeIdx].value / TOTAL) * 100).toFixed(0)}%
               </text>
-              <text x={CX} y={CY + 12} textAnchor="middle" fontSize={10} fill="#7a9a8d">
+              <text x={CX} y={CY + 12} textAnchor="middle" fontSize={10} fill="#5b7290">
                 {DATA[activeIdx].name}
               </text>
             </>
           ) : (
             <>
-              <text x={CX} y={CY - 6} textAnchor="middle" fontSize={13} fontWeight={600} fill="#4a7268">
+              <text x={CX} y={CY - 6} textAnchor="middle" fontSize={13} fontWeight={600} fill="#5b7290">
                 Total
               </text>
-              <text x={CX} y={CY + 12} textAnchor="middle" fontSize={12} fontWeight={700} fill="#1d3a2f">
+              <text x={CX} y={CY + 12} textAnchor="middle" fontSize={12} fontWeight={700} fill="#1e3a8a">
                 {(TOTAL / 1000).toFixed(1)}k
               </text>
             </>
@@ -97,7 +97,7 @@ export function PieChartCard() {
           {DATA.map((d, i) => (
             <g key={`leg${i}`}>
               <circle cx={14 + (i % 2) * 115} cy={168 + Math.floor(i / 2) * 18} r={5} fill={d.color} />
-              <text x={24 + (i % 2) * 115} y={172 + Math.floor(i / 2) * 18} fontSize={11} fill="#1d3a2f">
+              <text x={24 + (i % 2) * 115} y={172 + Math.floor(i / 2) * 18} fontSize={11} fill="#1e3a8a">
                 {d.name}
               </text>
             </g>
@@ -109,17 +109,17 @@ export function PieChartCard() {
         {DATA.map((item, index) => (
           <motion.div
             key={item.name}
-            className="p-3 bg-[#e2ede9] rounded-xl shadow-[4px_4px_8px_#bdc9c4,-4px_-4px_8px_#ffffff]"
+            className="p-3 rounded-xl glass-neo-inset"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 + index * 0.1 }}
-            whileHover={{ scale: 1.05, boxShadow: "6px 6px 12px #bdc9c4, -6px -6px 12px #ffffff" }}
+            whileHover={{ scale: 1.05 }}
           >
             <div className="flex items-center gap-2 mb-1">
               <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
-              <span className="text-[#7a9a8d] text-sm">{item.name}</span>
+              <span className="text-[#5b7290] text-sm">{item.name}</span>
             </div>
-            <p className="text-[#1d3a2f] font-semibold">{item.value.toLocaleString()}</p>
+            <p className="text-[#1e3a8a] font-semibold">{item.value.toLocaleString()}</p>
           </motion.div>
         ))}
       </div>

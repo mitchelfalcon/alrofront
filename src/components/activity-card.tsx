@@ -13,46 +13,39 @@ const activities = [
 export function ActivityCard() {
   return (
     <motion.div
-      className="p-6 bg-[#e2ede9] rounded-3xl
-        shadow-[12px_12px_24px_#bdc9c4,-12px_-12px_24px_#ffffff] h-full"
-      whileHover={{
-        boxShadow: "16px 16px 32px #bdc9c4, -16px -16px 32px #ffffff"
-      }}
+      className="p-6 rounded-3xl h-full glass-neo-card"
+      whileHover={{ scale: 1.01 }}
     >
       <div className="mb-6">
-        <h2 className="text-[#1d3a2f] mb-1">Recent Activity</h2>
-        <p className="text-[#7a9a8d] text-sm">Latest updates</p>
+        <h2 className="text-[#1e3a8a] mb-1 font-bold">Recent Activity</h2>
+        <p className="text-[#64748b] text-sm font-semibold">Latest updates</p>
       </div>
 
       <div className="space-y-4 max-h-[320px] overflow-y-auto pr-2">
         {activities.map((activity, index) => (
           <motion.div
             key={activity.id}
-            className="p-4 bg-[#e2ede9] rounded-2xl
-              shadow-[6px_6px_12px_#bdc9c4,-6px_-6px_12px_#ffffff]
-              transition-shadow cursor-pointer"
+            className="p-4 rounded-2xl transition-shadow cursor-pointer glass-neo-inset"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1 }}
             whileHover={{
               scale: 1.02,
               x: 5,
-              boxShadow: "8px 8px 16px #bdc9c4, -8px -8px 16px #ffffff"
             }}
             whileTap={{ scale: 0.98 }}
           >
             <div className="flex items-start gap-3">
-              <div className={`mt-1 p-2 bg-[#e2ede9] rounded-xl
-                shadow-[inset_3px_3px_6px_#bdc9c4,inset_-3px_-3px_6px_#ffffff]
-                ${activity.type === "up" ? "text-[#009970]" :
-                  activity.type === "down" ? "text-[#ef4444]" : "text-[#4a7268]"}`}>
+              <div className={`mt-1 p-2 rounded-xl glass-neo-inset
+                ${activity.type === "up" ? "text-[#2563eb]" :
+                  activity.type === "down" ? "text-[#ef4444]" : "text-[#475569]"}`}>
                 {activity.type === "up" && <ArrowUpRight className="w-4 h-4" />}
                 {activity.type === "down" && <ArrowDownRight className="w-4 h-4" />}
                 {activity.type === "neutral" && <Minus className="w-4 h-4" />}
               </div>
               <div className="flex-1">
-                <p className="text-[#1d3a2f] text-sm mb-1">{activity.title}</p>
-                <p className="text-[#7a9a8d] text-xs">{activity.time}</p>
+                <p className="text-[#0f172a] text-sm mb-1">{activity.title}</p>
+                <p className="text-[#64748b] text-xs">{activity.time}</p>
               </div>
             </div>
           </motion.div>

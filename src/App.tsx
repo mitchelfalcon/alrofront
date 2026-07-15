@@ -53,6 +53,7 @@ import { VoiceCommandQueue }       from "./components/voice-command-queue";
 import { MilestonesTimeline }      from "./components/milestones-timeline";
 import { CustomMicVoiceIcon }       from "./components/custom-voice-icon";
 import { RecentActivityLive }      from "./components/recent-activity-live";
+import { TableauLwcMigrator }      from "./components/tableau-lwc-migrator";
 
 // @ts-ignore
 import logoSphere from "./imports/Firefly_1.png";
@@ -70,9 +71,9 @@ const CALENDAR_EVENTS: Record<number, { title: string; time: string; tag: string
 };
 
 const ROI_DATA = [
-  { name: 'Finanzas', value: 2.4, color: '#10b981' },
-  { name: 'Legal', value: 4.7, color: '#34d399' },
-  { name: 'Corporativo', value: 87.0, color: '#059669' },
+  { name: 'Finanzas', value: 2.4, color: '#2563eb' },
+  { name: 'Legal', value: 4.7, color: '#38bdf8' },
+  { name: 'Corporativo', value: 87.0, color: '#1e40af' },
 ];
 
 const LATENCY_DATA = [
@@ -179,23 +180,23 @@ const GD: Record<string, React.CSSProperties> = {
 
 // ─── Operational AURA node roster ──────────────────────────────────────────────────────
 const AURA_NODES = [
-  { id: "facturacion", name: "Facturación", color: "#10b981", value: "$54K",    metric: "Revenue",  confidence: 96 },
+  { id: "facturacion", name: "Facturación", color: "#2563eb", value: "$54K",    metric: "Revenue",  confidence: 96 },
   { id: "casos",       name: "Casos",       color: "#3b82f6", value: "213",     metric: "Tickets",  confidence: 91 },
-  { id: "actividades", name: "Actividades", color: "#8b5cf6", value: "34sp",    metric: "Velocity", confidence: 98 },
-  { id: "ledger",      name: "Ledger",      color: "#f59e0b", value: "$125.5K", metric: "Balance",  confidence: 89 },
-  { id: "voz",         name: "Voz",         color: "#06b6d4", value: "94%",     metric: "Accuracy", confidence: 94 },
+  { id: "actividades", name: "Actividades", color: "#475569", value: "34sp",    metric: "Velocity", confidence: 98 },
+  { id: "ledger",      name: "Ledger",      color: "#1e3a8a", value: "$125.5K", metric: "Balance",  confidence: 89 },
+  { id: "voz",         name: "Voz",         color: "#0ea5e9", value: "94%",     metric: "Accuracy", confidence: 94 },
 ];
 
 const EXPANDED_KPI: Record<string, { color: string; kpis: { label: string; value: string }[]; formula: string }> = {
-  facturacion: { color: "#10b981", formula: "ROI = (Revenue − Cost) / Cost × 100",
+  facturacion: { color: "#2563eb", formula: "ROI = (Revenue − Cost) / Cost × 100",
     kpis: [{ label: "Revenue Total", value: "$54,239" }, { label: "ROI Margin", value: "34.2%" }, { label: "Q4 Target", value: "86%" }, { label: "AR Days", value: "21 days" }] },
   casos: { color: "#3b82f6", formula: "Res_Rate = Closed / Total_Open × 100",
     kpis: [{ label: "Open Cases", value: "213" }, { label: "Tier-2 Escalated", value: "3" }, { label: "Resolution Rate", value: "87%" }, { label: "SLA Breach", value: "2%" }] },
-  actividades: { color: "#8b5cf6", formula: "Velocity = StoryPoints / SprintDays",
+  actividades: { color: "#475569", formula: "Velocity = StoryPoints / SprintDays",
     kpis: [{ label: "Sprint Velocity", value: "34 SP" }, { label: "Tasks Done", value: "127" }, { label: "Backlog Items", value: "48" }, { label: "Blocked", value: "5" }] },
-  ledger: { color: "#f59e0b", formula: "CashFlow = Inflows − Outflows",
+  ledger: { color: "#1e3a8a", formula: "CashFlow = Inflows − Outflows",
     kpis: [{ label: "Net Balance", value: "$125.5K" }, { label: "AP Outstanding", value: "$18.2K" }, { label: "Cash Flow", value: "+$6.4K" }, { label: "Burn Rate", value: "$22K/mo" }] },
-  voz: { color: "#06b6d4", formula: "Acc = Correct_Intent / Total × 100",
+  voz: { color: "#0ea5e9", formula: "Acc = Correct_Intent / Total × 100",
     kpis: [{ label: "Accuracy", value: "94%" }, { label: "Commands/hr", value: "142" }, { label: "Avg Latency", value: "180ms" }, { label: "Veto Events", value: "0" }] },
 };
 
@@ -209,17 +210,17 @@ const ANALYTICS_CARDS: {
   spark: number[];
   voiceKeys: string[];
 }[] = [
-  { id: "revenue",      title: "Revenue Overview",    subtitle: "Monthly performance",  metric: "$54.2K",    trend: "+12.5%", positive: true,  color: "#10b981", icon: LineChart,  spark: [40,30,50,45,60,55,70], voiceKeys: ["revenue","ingresos","ventas"] },
-  { id: "spending",     title: "Spending Trend",       subtitle: "Annual overview",      metric: "Avg $5.1K", trend: "+28%",   positive: true,  color: "#059669", icon: CreditCard, spark: [25,38,22,46,34,55,42,68,51,85,62,91], voiceKeys: ["gasto","gastos","spending","tendencia"] },
-  { id: "orders",       title: "Orders Analysis",      subtitle: "Weekly breakdown",     metric: "1,423",     trend: "-3.1%",  positive: false, color: "#ef4444", icon: BarChart2,  spark: [80,65,90,75,85,70,95], voiceKeys: ["órdenes","ordenes","pedidos","orders"] },
+  { id: "revenue",      title: "Revenue Overview",    subtitle: "Monthly performance",  metric: "$54.2K",    trend: "+12.5%", positive: true,  color: "#2563eb", icon: LineChart,  spark: [40,30,50,45,60,55,70], voiceKeys: ["revenue","ingresos","ventas"] },
+  { id: "spending",     title: "Spending Trend",       subtitle: "Annual overview",      metric: "Avg $5.1K", trend: "+28%",   positive: true,  color: "#1e3a8a", icon: CreditCard, spark: [25,38,22,46,34,55,42,68,51,85,62,91], voiceKeys: ["gasto","gastos","spending","tendencia"] },
+  { id: "orders",       title: "Orders Analysis",      subtitle: "Weekly breakdown",     metric: "1,423",     trend: "-3.1%",  positive: false, color: "#1d4ed8", icon: BarChart2,  spark: [80,65,90,75,85,70,95], voiceKeys: ["órdenes","ordenes","pedidos","orders"] },
   { id: "devices",      title: "Device Distribution",  subtitle: "Traffic by device",    metric: "11.2K",     trend: "+8.3%",  positive: true,  color: "#3b82f6", icon: PieChart,   spark: [42,31,24,15], voiceKeys: ["dispositivos","devices","distribución"] },
-  { id: "products",     title: "Product Revenue",      subtitle: "Top performers",       metric: "$21.6K",    trend: "+15.2%", positive: true,  color: "#8b5cf6", icon: BarChart2,  spark: [49,39,52,35,41], voiceKeys: ["productos","products"] },
-  { id: "departments",  title: "Dept Performance",     subtitle: "Q4 vs Q3 2024",        metric: "92.5 avg",  trend: "+8.2%",  positive: true,  color: "#f59e0b", icon: Award,      spark: [85,92,78,88,82,70], voiceKeys: ["departamentos","departamento","departments"] },
+  { id: "products",     title: "Product Revenue",      subtitle: "Top performers",       metric: "$21.6K",    trend: "+15.2%", positive: true,  color: "#0ea5e9", icon: BarChart2,  spark: [49,39,52,35,41], voiceKeys: ["productos","products"] },
+  { id: "departments",  title: "Dept Performance",     subtitle: "Q4 vs Q3 2024",        metric: "92.5 avg",  trend: "+8.2%",  positive: true,  color: "#2563eb", icon: Award,      spark: [85,92,78,88,82,70], voiceKeys: ["departamentos","departamento","departments"] },
   { id: "activity",     title: "Recent Activity",      subtitle: "Latest events",        metric: "24 new",    trend: "today",  positive: true,  color: "#06b6d4", icon: Activity,   spark: [3,5,2,8,6,9,7], voiceKeys: ["actividad","activity","eventos"] },
-  { id: "tasks",        title: "Tasks",                subtitle: "Current sprint",       metric: "18 / 24",   trend: "75%",    positive: true,  color: "#f59e0b", icon: List,       spark: [4,6,8,7,9,8,10], voiceKeys: ["tareas","tasks"] },
-  { id: "transactions", title: "Transactions",         subtitle: "Recent history",       metric: "47 ops",    trend: "today",  positive: true,  color: "#f59e0b", icon: DollarSign, spark: [5,8,3,9,6,11,7], voiceKeys: ["transacciones","transactions","historial"] },
-  { id: "balance",      title: "Balance Overview",     subtitle: "Account summary",      metric: "$125.5K",   trend: "+8.3%",  positive: true,  color: "#10b981", icon: DollarSign, spark: [100,108,95,115,112,120,125], voiceKeys: ["balance","saldo","cuenta"] },
-  { id: "income",       title: "Income Overview",      subtitle: "Revenue streams",      metric: "$287K",     trend: "+14%",   positive: true,  color: "#059669", icon: TrendingUp, spark: [200,230,210,250,260,280,287], voiceKeys: ["income","ingreso","anillo"] },
+  { id: "tasks",        title: "Tasks",                subtitle: "Current sprint",       metric: "18 / 24",   trend: "75%",    positive: true,  color: "#0284c7", icon: List,       spark: [4,6,8,7,9,8,10], voiceKeys: ["tareas","tasks"] },
+  { id: "transactions", title: "Transactions",         subtitle: "Recent history",       metric: "47 ops",    trend: "today",  positive: true,  color: "#3b82f6", icon: DollarSign, spark: [5,8,3,9,6,11,7], voiceKeys: ["transacciones","transactions","historial"] },
+  { id: "balance",      title: "Balance Overview",     subtitle: "Account summary",      metric: "$125.5K",   trend: "+8.3%",  positive: true,  color: "#0ea5e9", icon: DollarSign, spark: [100,108,95,115,112,120,125], voiceKeys: ["balance","saldo","cuenta"] },
+  { id: "income",       title: "Income Overview",      subtitle: "Revenue streams",      metric: "$287K",     trend: "+14%",   positive: true,  color: "#0284c7", icon: TrendingUp, spark: [200,230,210,250,260,280,287], voiceKeys: ["income","ingreso","anillo"] },
 ];
 
 const EXPANDED_COMPONENTS: Record<CardId, React.ReactNode> = {
@@ -282,12 +283,12 @@ function CompactCard({
       style={{
         ...G.card,
         boxShadow: voiceHighlight
-          ? `0 4px 24px rgba(16,185,129,0.18), 0 0 0 2px ${card.color}`
+          ? `0 4px 24px rgba(37,99,235,0.18), 0 0 0 2px ${card.color}`
           : G.card.boxShadow,
         outline: "none",
         transition: "box-shadow 0.2s",
       }}
-      whileHover={{ scale: 1.02, boxShadow: "0 8px 32px rgba(16,185,129,0.12)" }}
+      whileHover={{ scale: 1.02, boxShadow: "0 8px 32px rgba(37,99,235,0.12)" }}
       whileTap={{ scale: 0.98 }}
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
@@ -314,18 +315,18 @@ function CompactCard({
           </motion.p>
           <div className="flex items-center gap-1">
             {card.positive
-              ? <ArrowUpRight className="w-3 h-3" style={{ color: "#10b981" }} />
+              ? <ArrowUpRight className="w-3 h-3" style={{ color: "#3b82f6" }} />
               : <ArrowDownRight className="w-3 h-3" style={{ color: "#ef4444" }} />
             }
             <span className="text-[10px] font-bold font-sans"
-              style={{ color: card.positive ? "#10b981" : "#ef4444" }}>
+              style={{ color: card.positive ? "#3b82f6" : "#ef4444" }}>
               {card.trend}
             </span>
           </div>
         </div>
         <div className="flex-shrink-0 flex flex-col items-end gap-1">
           <Sparkline data={card.spark} color={card.color} />
-          <Maximize2 className="w-3 h-3" style={{ color: "rgba(16,185,129,0.3)" }} />
+          <Maximize2 className="w-3 h-3" style={{ color: "rgba(37,99,235,0.3)" }} />
         </div>
       </div>
     </motion.button>
@@ -357,7 +358,7 @@ function KpiMiniCard({
         }}
         initial={{ opacity: 0, scale: 0.88 }}
         animate={{ opacity: 1, scale: 1 }}
-        whileHover={{ scale: 1.04, boxShadow: "0 8px 32px rgba(16,185,129,0.14)" }}
+        whileHover={{ scale: 1.04, boxShadow: "0 8px 32px rgba(37,99,235,0.14)" }}
         whileTap={{ scale: 0.96 }}
       >
         <div className="flex items-center justify-between mb-1">
@@ -372,14 +373,14 @@ function KpiMiniCard({
               {node.name}
             </span>
           </div>
-          <Maximize2 className="w-2.5 h-2.5 flex-shrink-0" style={{ color: "rgba(16,185,129,0.28)" }} />
+          <Maximize2 className="w-2.5 h-2.5 flex-shrink-0" style={{ color: "rgba(37,99,235,0.28)" }} />
         </div>
         <p className="text-lg font-bold leading-none mb-0.5" style={{ color: darkMode ? "#ffffff" : "#0f172a", fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>
           {node.value}
         </p>
         <p className="text-[10px] mb-2 font-light" style={{ color: darkMode ? "#94a3b8" : "#5b7290", fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>{node.metric}</p>
         <div className="h-1 rounded-full overflow-hidden"
-          style={{ background: "rgba(16,185,129,0.08)" }}>
+          style={{ background: "rgba(37,99,235,0.08)" }}>
           <motion.div className="h-full rounded-full"
             style={{ background: `linear-gradient(90deg,${node.color},${node.color}77)` }}
             initial={{ width: 0 }}
@@ -389,7 +390,7 @@ function KpiMiniCard({
         <div className="flex items-center justify-between mt-1">
           <span className="text-[8px] font-light" style={{ color: darkMode ? "#64748b" : "#5b7290", fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>Confidence</span>
           <span className="text-[9px] font-bold"
-            style={{ color: node.confidence >= 94 ? "#10b981" : "#ef4444", fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>
+            style={{ color: node.confidence >= 94 ? "#2563eb" : "#ef4444", fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>
             {node.confidence}%
           </span>
         </div>
@@ -790,12 +791,12 @@ const NodeContextMenu: React.FC<{
 function ApiGatewayPorts({ tick, darkMode }: { tick: number; darkMode?: boolean }) {
   const G = darkMode ? GD : GLOBAL_G;
   const sfStatuses = [
-    { label: "OAuth Handshake",      status: "OK",                              color: "#10b981" },
-    { label: "Data Cloud Ingestion", status: "Live",                            color: "#10b981" },
-    { label: "Flow Trigger Status",  status: tick % 7 === 0 ? "Triggered" : "Idle", color: tick % 7 === 0 ? "#f59e0b" : "#10b981" },
+    { label: "OAuth Handshake",      status: "OK",                              color: "#2563eb" },
+    { label: "Data Cloud Ingestion", status: "Live",                            color: "#2563eb" },
+    { label: "Flow Trigger Status",  status: tick % 7 === 0 ? "Triggered" : "Idle", color: tick % 7 === 0 ? "#f59e0b" : "#2563eb" },
   ];
   const httpCodes = [
-    { code: "HTTP 200", label: "Success",              count: 1847 + tick,  color: "#10b981", pulse: true },
+    { code: "HTTP 200", label: "Success",              count: 1847 + tick,  color: "#2563eb", pulse: true },
     { code: "HTTP 406", label: "Veto Estructural",     count: 3,            color: "#f59e0b", pulse: tick % 12 < 3 },
     { code: "HTTP 422", label: "Escalamiento",         count: 1,            color: "#ef4444", pulse: tick % 20 < 2 },
   ];
@@ -1119,6 +1120,7 @@ export default function App() {
   const [activeSection, setActiveSection]     = useState("dashboard");
   const [isHubHovered, setIsHubHovered]       = useState(false);
   const [showNetworkCanvas, setShowNetworkCanvas] = useState(false);
+  const [expandAllCards, setExpandAllCards]   = useState(true);
   const [kpiSortBy, setKpiSortBy]             = useState<'confidence' | 'revenue' | 'name'>('confidence');
   const [calendarTab, setCalendarTab]         = useState<'Today' | 'Week' | 'Month' | 'Year'>('Week');
   const [isArchOpen, setIsArchOpen]           = useState(false);
@@ -1234,7 +1236,48 @@ export default function App() {
     const t = transcript.toLowerCase().trim();
     let reply = "";
 
-    if (t.includes("cerrar") || t.includes("close") || t.includes("salir")) {
+    if (t.includes("emampi")) {
+      if (t.includes("abajo") || t.includes("bajar") || t.includes("down") || t.includes("mover abajo")) {
+        window.scrollBy({ top: 400, behavior: "smooth" });
+        reply = "Emampi ha movido el dashboard hacia abajo.";
+      } else if (t.includes("arriba") || t.includes("subir") || t.includes("up") || t.includes("mover arriba")) {
+        window.scrollBy({ top: -400, behavior: "smooth" });
+        reply = "Emampi ha movido el dashboard hacia arriba.";
+      } else if (t.includes("expandir") || t.includes("expande todo") || t.includes("expande todas") || t.includes("expand all")) {
+        setExpandAllCards(true);
+        reply = "Emampi ha expandido todas las tarjetas de análisis del dashboard.";
+      } else if (t.includes("colapsar") || t.includes("colapsa todo") || t.includes("colapsa todas") || t.includes("collapse all")) {
+        setExpandAllCards(false);
+        reply = "Emampi ha colapsado todas las tarjetas de análisis del dashboard.";
+      } else if (t.includes("finanzas")) {
+        setCurrentDept("Finanzas");
+        reply = "Emampi ha cambiado el departamento a Finanzas y sincronizado con Salesforce.";
+      } else if (t.includes("operaciones")) {
+        setCurrentDept("Operaciones");
+        reply = "Emampi ha cambiado el departamento del dashboard a Operaciones.";
+      } else if (t.includes("analytics") || t.includes("analítica")) {
+        setCurrentDept("Analytics");
+        reply = "Emampi ha cambiado el departamento del dashboard a Analytics.";
+      } else if (t.includes("tecnología")) {
+        setCurrentDept("Tecnología");
+        reply = "Emampi ha cambiado el departamento del dashboard a Tecnología.";
+      } else if (t.includes("legal")) {
+        setCurrentDept("Legal");
+        reply = "Emampi ha cambiado el departamento del dashboard a Legal.";
+      } else if (t.includes("ventas")) {
+        setCurrentDept("Ventas");
+        reply = "Emampi ha cambiado el departamento del dashboard a Ventas.";
+      } else if (t.includes("inicio") || t.includes("comienzo") || t.includes("top")) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        reply = "Emampi ha movido el dashboard al inicio de la página.";
+      } else if (t.includes("final") || t.includes("bottom")) {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+        reply = "Emampi ha movido el dashboard al final de la página.";
+      } else {
+        window.scrollBy({ top: 250, behavior: "smooth" });
+        reply = "Hola, soy Emampi. He movido el dashboard y refrescado la trazabilidad con Salesforce Data Cloud.";
+      }
+    } else if (t.includes("cerrar") || t.includes("close") || t.includes("salir")) {
       setExpandedCard(null); setExpandedKpi(null);
       reply = "He cerrado las ventanas activas.";
     } else if (t.includes("compartir") || t.includes("share")) {
@@ -1296,7 +1339,48 @@ export default function App() {
     const t = trimmed.toLowerCase();
     let reply = "";
 
-    if (t.includes("cerrar") || t.includes("close") || t.includes("salir")) {
+    if (t.includes("emampi")) {
+      if (t.includes("abajo") || t.includes("bajar") || t.includes("down") || t.includes("mover abajo")) {
+        window.scrollBy({ top: 400, behavior: "smooth" });
+        reply = "Emampi ha movido el dashboard hacia abajo.";
+      } else if (t.includes("arriba") || t.includes("subir") || t.includes("up") || t.includes("mover arriba")) {
+        window.scrollBy({ top: -400, behavior: "smooth" });
+        reply = "Emampi ha movido el dashboard hacia arriba.";
+      } else if (t.includes("expandir") || t.includes("expande todo") || t.includes("expande todas") || t.includes("expand all")) {
+        setExpandAllCards(true);
+        reply = "Emampi ha expandido todas las tarjetas de análisis del dashboard.";
+      } else if (t.includes("colapsar") || t.includes("colapsa todo") || t.includes("colapsa todas") || t.includes("collapse all")) {
+        setExpandAllCards(false);
+        reply = "Emampi ha colapsado todas las tarjetas de análisis del dashboard.";
+      } else if (t.includes("finanzas")) {
+        setCurrentDept("Finanzas");
+        reply = "Emampi ha cambiado el departamento a Finanzas.";
+      } else if (t.includes("operaciones")) {
+        setCurrentDept("Operaciones");
+        reply = "Emampi ha cambiado el departamento del dashboard a Operaciones.";
+      } else if (t.includes("analytics") || t.includes("analítica")) {
+        setCurrentDept("Analytics");
+        reply = "Emampi ha cambiado el departamento del dashboard a Analytics.";
+      } else if (t.includes("tecnología")) {
+        setCurrentDept("Tecnología");
+        reply = "Emampi ha cambiado el departamento del dashboard a Tecnología.";
+      } else if (t.includes("legal")) {
+        setCurrentDept("Legal");
+        reply = "Emampi ha cambiado el departamento del dashboard a Legal.";
+      } else if (t.includes("ventas")) {
+        setCurrentDept("Ventas");
+        reply = "Emampi ha cambiado el departamento del dashboard a Ventas.";
+      } else if (t.includes("inicio") || t.includes("comienzo") || t.includes("top")) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        reply = "Emampi ha movido el dashboard al inicio de la página.";
+      } else if (t.includes("final") || t.includes("bottom")) {
+        window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+        reply = "Emampi ha movido el dashboard al final de la página.";
+      } else {
+        window.scrollBy({ top: 250, behavior: "smooth" });
+        reply = "Hola, soy Emampi. He movido el dashboard y refrescado la trazabilidad con Salesforce Data Cloud.";
+      }
+    } else if (t.includes("cerrar") || t.includes("close") || t.includes("salir")) {
       setExpandedCard(null);
       setExpandedKpi(null);
       reply = "He cerrado las ventanas activas.";
@@ -2141,8 +2225,8 @@ export default function App() {
                     </div>
 
                     {/* Minimal status bar next to title */}
-                    <div className="flex items-center gap-2 p-1.5 px-3 rounded-2xl bg-emerald-50/50 border border-emerald-100 text-emerald-800 text-[10px] font-bold" style={{ fontFamily: "'Segoe UI', sans-serif" }}>
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <div className="flex items-center gap-2 p-1.5 px-3 rounded-2xl bg-sky-50/50 border border-sky-100 text-sky-800 text-[10px] font-bold" style={{ fontFamily: "'Segoe UI', sans-serif" }}>
+                      <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-pulse" />
                       <span>Trust Layer Security Enabled</span>
                     </div>
                   </div>
@@ -2769,8 +2853,8 @@ export default function App() {
                           />
                           {/* Live pulse dot */}
                           <span className="absolute -bottom-1 -right-1 flex h-3 w-3 z-20">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-3 w-3 bg-sky-500"></span>
                           </span>
                         </div>
                         
@@ -2781,7 +2865,7 @@ export default function App() {
                             </span>
                             {voiceActive && (
                               <motion.span 
-                                className="text-[9px] font-extrabold text-emerald-500 font-mono tracking-wider animate-pulse flex items-center gap-0.5"
+                                className="text-[9px] font-extrabold text-sky-500 font-mono tracking-wider animate-pulse flex items-center gap-0.5"
                                 initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                               >
                                 <Radio className="w-2.5 h-2.5" /> NLP ON
@@ -2795,7 +2879,7 @@ export default function App() {
                       </div>
                       <div className="mt-2.5 p-3 rounded-2xl bg-[#0ea5e9]/5 border border-[#0ea5e9]/10 animate-fade-in">
                         <p className="text-sm font-extrabold tracking-tight text-[#1e3a8a] flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-sky-500 animate-ping" />
                           Welcome back, Admin
                         </p>
                         <p className="text-[11px] font-semibold text-slate-500 mt-0.5">
@@ -2935,10 +3019,10 @@ export default function App() {
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
                     </span>
-                    <span className="text-[9px] font-extrabold text-emerald-600 uppercase font-mono tracking-wider">ONLINE</span>
+                    <span className="text-[9px] font-extrabold text-sky-600 uppercase font-mono tracking-wider">ONLINE</span>
                   </div>
                 </div>
                 <div className="mt-1">
@@ -3145,7 +3229,7 @@ export default function App() {
               />
             </div>
 
-            {/* Neo Aura 4j Network */}
+            {/* Tableau Network */}
             <AnimatePresence>
               {showNetworkCanvas && (
                 <motion.section className="mb-5 overflow-hidden"
@@ -3160,7 +3244,7 @@ export default function App() {
                       animate={{ opacity: [1, 0.3, 1] }}
                       transition={{ duration: 1.4, repeat: Infinity }} />
                     <span className="text-[11px] font-semibold uppercase tracking-widest" style={{ color: "#1e3a8a" }}>
-                      Neo Aura 4j — Live Network · Betweenness Centrality
+                      Tableau — Live Network · Betweenness Centrality
                     </span>
                     <div className="h-px flex-1"
                       style={{ background: "linear-gradient(to right,rgba(37,99,235,0.2),transparent)" }} />
@@ -3271,7 +3355,7 @@ export default function App() {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
                   <div className="flex items-center gap-3">
                     <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color: "#1e3a8a" }}>
-                      KPI — Neo Aura Nodes
+                      KPI — Tableau Nodes
                     </span>
                     <div className="hidden sm:block h-px w-24"
                       style={{ background: "linear-gradient(to right,rgba(37,99,235,0.14),transparent)" }} />
@@ -3330,32 +3414,83 @@ export default function App() {
               )}
             </AnimatePresence>
 
+            {/* Tableau, Maven & Salesforce LWC Suite */}
+            <TableauLwcMigrator darkMode={isDark} />
+
             {/* Analytics Grid */}
             <div className="mb-4">
-              <div className="flex items-center gap-3 mb-3">
-                <Layers className="w-3.5 h-3.5" style={{ color: "#2563eb" }} />
-                <span className="text-[11px] font-semibold uppercase tracking-widest" style={{ color: "#1e3a8a" }}>
+              <div className="flex items-center gap-3 mb-3 flex-wrap sm:flex-nowrap">
+                <Layers className="w-3.5 h-3.5 flex-shrink-0" style={{ color: "#2563eb" }} />
+                <span className="text-[11px] font-semibold uppercase tracking-widest mr-2" style={{ color: "#1e3a8a" }}>
                   Analytics — click any card para expandir · di el nombre por voz
                 </span>
-                <div className="h-px flex-1"
+                <motion.button
+                  onClick={() => setExpandAllCards(p => !p)}
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-xl flex-shrink-0 font-bold border transition-all duration-200"
+                  style={{
+                    ...G.card,
+                    background: expandAllCards ? "rgba(37, 99, 235, 0.12)" : G.card.background,
+                    borderColor: expandAllCards ? "rgba(37, 99, 235, 0.45)" : "rgba(37, 99, 235, 0.15)",
+                  }}
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.96 }}
+                >
+                  <span className="text-[9px] uppercase tracking-wider font-extrabold" style={{ color: "#1e3a8a" }}>
+                    {expandAllCards ? "▲ Colapsar Todo" : "▼ Expandir todo"}
+                  </span>
+                </motion.button>
+                <div className="h-px flex-1 min-w-[20px]"
                   style={{ background: "linear-gradient(to right,rgba(37,99,235,0.14),transparent)" }} />
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {ANALYTICS_CARDS.map((card, i) => (
-                  <motion.div key={card.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.35 + i * 0.04 }}
-                  >
-                    <CompactCard
-                      card={card}
-                      onExpand={() => setExpandedCard(card.id)}
-                      voiceHighlight={voiceHighlight === card.id}
-                      darkMode={isDark}
-                    />
-                  </motion.div>
-                ))}
-              </div>
+              {expandAllCards ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {ANALYTICS_CARDS.map((card, i) => (
+                    <motion.div key={card.id}
+                      className="p-5 rounded-3xl"
+                      style={{
+                        ...G.cardDeep,
+                        border: `1.5px solid ${card.color}25`,
+                      }}
+                      initial={{ opacity: 0, y: 15 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: i * 0.04 }}
+                    >
+                      <div className="flex items-center justify-between pb-3 mb-4"
+                        style={{ borderBottom: "1px solid rgba(37,99,235,0.08)" }}>
+                        <div>
+                          <div className="flex items-center gap-2 mb-1">
+                            <div className="w-1.5 h-4 rounded-full" style={{ background: card.color }} />
+                            <h3 className="text-base font-bold" style={{ color: "#0d1f1a" }}>{card.title}</h3>
+                          </div>
+                          <p className="text-xs text-slate-500">{card.subtitle}</p>
+                        </div>
+                        <span className="text-xs font-bold px-2.5 py-1 rounded-full font-sans"
+                          style={{ background: `${card.color}10`, color: card.color }}>
+                          {card.metric}
+                        </span>
+                      </div>
+                      <div className="p-1">{EXPANDED_COMPONENTS[card.id]}</div>
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {ANALYTICS_CARDS.map((card, i) => (
+                    <motion.div key={card.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.35 + i * 0.04 }}
+                    >
+                      <CompactCard
+                        card={card}
+                        onExpand={() => setExpandedCard(card.id)}
+                        voiceHighlight={voiceHighlight === card.id}
+                        darkMode={isDark}
+                      />
+                    </motion.div>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Tri-Gateway Hub */}
@@ -3377,14 +3512,14 @@ export default function App() {
                   style={G.card}
                   whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
                 >
-                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#10b981] to-[#059669]
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#1e40af]
                     flex items-center justify-center text-white text-sm font-bold flex-shrink-0">A</div>
                   <div className="flex flex-col items-start leading-none gap-0.5">
-                    <span className="text-sm font-semibold" style={{ color: "#0d1f1a" }}>Admin</span>
-                    <span className="text-[9px] flex items-center gap-1" style={{ color: "#7a9a8d" }}>
+                    <span className="text-sm font-semibold" style={{ color: "#1e3a8a" }}>Admin</span>
+                    <span className="text-[9px] flex items-center gap-1" style={{ color: "#475569" }}>
                       <Building2 style={{ width: 9, height: 9 }} />
                       <span>Organización de mi departamento</span>
-                      <span style={{ color: "#10b981", fontWeight: 700 }}>· {currentDept}</span>
+                      <span style={{ color: "#2563eb", fontWeight: 700 }}>· {currentDept}</span>
                     </span>
                   </div>
                   <motion.div animate={{ rotate: orgDropdownOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
@@ -3403,19 +3538,19 @@ export default function App() {
                       transition={{ duration: 0.18 }}
                     >
                       <div className="px-4 py-3"
-                        style={{ borderBottom: "1px solid rgba(16,185,129,0.08)" }}>
+                        style={{ borderBottom: "1px solid rgba(37,99,235,0.08)" }}>
                         <div className="flex items-center gap-2.5">
-                          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#10b981] to-[#059669]
+                          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#2563eb] to-[#1e40af]
                             flex items-center justify-center text-white text-sm font-bold flex-shrink-0">A</div>
                           <div>
-                            <p className="text-sm font-semibold" style={{ color: "#0d1f1a" }}>Admin User</p>
-                            <p className="text-xs" style={{ color: "#7a9a8d" }}>admin@arlo.io</p>
+                            <p className="text-sm font-semibold" style={{ color: "#1e3a8a" }}>Admin User</p>
+                            <p className="text-xs" style={{ color: "#475569" }}>admin@arlo.io</p>
                           </div>
                         </div>
                       </div>
                       <div className="p-2">
                         <p className="text-[9px] uppercase tracking-widest px-2 py-1"
-                          style={{ color: "#7a9a8d" }}>
+                          style={{ color: "#475569" }}>
                           Organización / Departamento
                         </p>
                         {ORG_DEPTS.map(dept => (
@@ -3423,11 +3558,11 @@ export default function App() {
                             onClick={() => { setCurrentDept(dept); setOrgDropdownOpen(false); }}
                             className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-sm"
                             style={{
-                              color: currentDept === dept ? "#1e3a8a" : "#4a7268",
+                              color: currentDept === dept ? "#1e3a8a" : "#475569",
                               fontWeight: currentDept === dept ? 600 : 400,
                               transition: "background 0.1s",
                             }}
-                            onMouseEnter={e => (e.currentTarget.style.background = "rgba(16,185,129,0.06)")}
+                            onMouseEnter={e => (e.currentTarget.style.background = "rgba(37,99,235,0.06)")}
                             onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
                           >
                             {dept}

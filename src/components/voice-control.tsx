@@ -45,10 +45,10 @@ const STATE_LABELS: Record<VoiceState, string> = {
 };
 
 const STATE_COLORS: Record<VoiceState, string> = {
-  idle: "#4a7268",
-  listening: "#00ffa3",
-  processing: "#f59e0b",
-  responding: "#06b6d4",
+  idle: "#64748b",
+  listening: "#2563eb",
+  processing: "#3b82f6",
+  responding: "#1e3a8a",
 };
 
 export function VoiceControl({ state, onToggle, confidence }: VoiceControlProps) {
@@ -59,17 +59,20 @@ export function VoiceControl({ state, onToggle, confidence }: VoiceControlProps)
     <div
       className="p-4 rounded-2xl space-y-3"
       style={{
-        background: "rgba(4,20,15,0.82)",
-        border: "1px solid rgba(0,255,163,0.12)",
+        background: "rgba(240, 246, 255, 0.48)",
+        backdropFilter: "blur(24px)",
+        WebkitBackdropFilter: "blur(24px)",
+        border: "1px solid rgba(255, 255, 255, 0.7)",
+        boxShadow: "14px 14px 32px rgba(150, 175, 205, 0.32), -14px -14px 32px rgba(255, 255, 255, 0.95), inset 3px 3px 6px rgba(255, 255, 255, 0.8), inset -3px -3px 6px rgba(150, 175, 205, 0.15)",
         fontFamily: "'Segoe UI', -apple-system, sans-serif",
       }}
     >
       {/* Header */}
       <div className="flex items-center justify-between">
-        <span className="text-[10px] font-medium uppercase tracking-[0.16em]" style={{ color: "#4a7268" }}>
-          Voice Control
+        <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-500">
+          Voice Portal
         </span>
-        <span className="text-[10px] font-bold" style={{ color: stateColor, letterSpacing: "0.12em" }}>
+        <span className="text-[10px] font-black" style={{ color: stateColor, letterSpacing: "0.12em" }}>
           {STATE_LABELS[state]}
         </span>
       </div>
@@ -99,35 +102,35 @@ export function VoiceControl({ state, onToggle, confidence }: VoiceControlProps)
       <div className="flex items-center gap-3">
         <motion.button
           onClick={onToggle}
-          className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full transition-all"
+          className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full transition-all cursor-pointer"
           style={
             isActive
-              ? { background: stateColor, color: "#0d2b22", boxShadow: `0 0 18px ${stateColor}60` }
-              : { background: "rgba(0,255,163,0.08)", color: "#4a7268", border: "1px solid rgba(0,255,163,0.18)" }
+              ? { background: stateColor, color: "#ffffff", boxShadow: `3px 3px 10px rgba(165, 185, 210, 0.25)` }
+              : { background: "rgba(37, 99, 235, 0.08)", color: "#1e3a8a", border: "1px solid rgba(37, 99, 235, 0.18)" }
           }
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.94 }}
         >
-          {isActive ? <CustomMicVoiceIcon className="w-4.5 h-4.5" /> : <MicOff className="w-4 h-4" />}
+          {isActive ? <CustomMicVoiceIcon className="w-4.5 h-4.5 text-white" /> : <MicOff className="w-4 h-4" />}
         </motion.button>
 
         <div className="flex-1 min-w-0">
           <div className="flex justify-between mb-1">
-            <span className="text-[10px]" style={{ color: "#4a7268" }}>NLP Confidence</span>
+            <span className="text-[10px] text-slate-500 font-bold">NLP Confidence</span>
             <span
-              className="text-[10px] font-bold"
+              className="text-[10px] font-black"
               style={{
-                color: confidence >= 94 ? "#00ffa3" : "#f59e0b",
+                color: confidence >= 94 ? "#2563eb" : "#ef4444",
                 fontFamily: "'Segoe UI', -apple-system, sans-serif",
               }}
             >
               {confidence}%
             </span>
           </div>
-          <div className="h-1 rounded-full overflow-hidden" style={{ background: "rgba(0,255,163,0.08)" }}>
+          <div className="h-1.5 rounded-full overflow-hidden bg-slate-200">
             <motion.div
               className="h-full rounded-full"
-              style={{ background: confidence >= 94 ? "#00ffa3" : "#f59e0b" }}
+              style={{ background: confidence >= 94 ? "#2563eb" : "#ef4444" }}
               animate={{ width: `${confidence}%` }}
               transition={{ duration: 0.6 }}
             />

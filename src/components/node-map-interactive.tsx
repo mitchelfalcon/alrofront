@@ -10,18 +10,18 @@ const SVG_W = 900, SVG_H = 480;
 const ALL_NODES = [
   { id: "core",        label: "ARLO",        cx: 450, cy: 235, r: 27, color: "#2563eb", type: "core" },
   // KPI pentagon (r=130)
-  { id: "facturacion", label: "Facturación", cx: 450, cy: 105, r: 22, color: "#1e3a8a", type: "kpi"  },
-  { id: "casos",       label: "Casos",       cx: 574, cy: 195, r: 22, color: "#3b82f6", type: "kpi"  },
-  { id: "actividades", label: "Actividades", cx: 526, cy: 340, r: 22, color: "#8b5cf6", type: "kpi"  },
-  { id: "ledger",      label: "Ledger",      cx: 374, cy: 340, r: 22, color: "#f59e0b", type: "kpi"  },
-  { id: "voz",         label: "Voz",         cx: 326, cy: 195, r: 22, color: "#06b6d4", type: "kpi"  },
+  { id: "facturacion", label: "Billing",     cx: 450, cy: 105, r: 22, color: "#1e3a8a", type: "kpi"  },
+  { id: "casos",       label: "Cases",       cx: 574, cy: 195, r: 22, color: "#3b82f6", type: "kpi"  },
+  { id: "actividades", label: "Activities",  cx: 526, cy: 340, r: 22, color: "#475569", type: "kpi"  },
+  { id: "ledger",      label: "Ledger",      cx: 374, cy: 340, r: 22, color: "#1d4ed8", type: "kpi"  },
+  { id: "voz",         label: "Voice",       cx: 326, cy: 195, r: 22, color: "#0ea5e9", type: "kpi"  },
   // DEPT hexagon (r=210)
-  { id: "finanzas",    label: "Finanzas",    cx: 450, cy:  25, r: 17, color: "#fbbf24", type: "dept" },
-  { id: "operaciones", label: "Operaciones", cx: 632, cy: 130, r: 17, color: "#f87171", type: "dept" },
-  { id: "analytics",   label: "Analytics",   cx: 632, cy: 340, r: 17, color: "#a78bfa", type: "dept" },
-  { id: "tecnologia",  label: "Tecnología",  cx: 450, cy: 445, r: 17, color: "#38bdf8", type: "dept" },
-  { id: "legal",       label: "Legal",       cx: 268, cy: 340, r: 17, color: "#fb923c", type: "dept" },
-  { id: "ventas",      label: "Ventas",      cx: 268, cy: 130, r: 17, color: "#f472b6", type: "dept" },
+  { id: "finanzas",    label: "Finance",     cx: 450, cy:  25, r: 17, color: "#0f172a", type: "dept" },
+  { id: "operaciones", label: "Operations",  cx: 632, cy: 130, r: 17, color: "#64748b", type: "dept" },
+  { id: "analytics",   label: "Analytics",   cx: 632, cy: 340, r: 17, color: "#1e40af", type: "dept" },
+  { id: "tecnologia",  label: "Technology",  cx: 450, cy: 445, r: 17, color: "#0284c7", type: "dept" },
+  { id: "legal",       label: "Legal",       cx: 268, cy: 340, r: 17, color: "#334155", type: "dept" },
+  { id: "ventas",      label: "Sales",       cx: 268, cy: 130, r: 17, color: "#38bdf8", type: "dept" },
 ];
 
 const KPI_IDS  = ["facturacion","casos","actividades","ledger","voz"];
@@ -73,131 +73,131 @@ const NODE_INFO: Record<string, {
   stats: { label: string; value: string }[];
 }> = {
   core: {
-    title: "ARLO — Núcleo Central", subtitle: "Sistema de inteligencia empresarial",
+    title: "ARLO — Central Core", subtitle: "Enterprise Intelligence System",
     color: "#2563eb",
     stats: [
-      { label: "Módulos Activos", value: "5"      },
-      { label: "Departamentos",        value: "6"      },
-      { label: "Uptime",               value: "99.9%"  },
-      { label: "Queries/día",     value: "12,400" },
+      { label: "Active Modules", value: "5"      },
+      { label: "Departments",    value: "6"      },
+      { label: "Uptime",         value: "99.9%"  },
+      { label: "Daily Queries",  value: "12,400" },
     ],
   },
   facturacion: {
-    title: "Facturación", subtitle: "Módulo KPI — Revenue & Billing",
+    title: "Billing", subtitle: "KPI Module — Revenue & Billing",
     color: "#1e3a8a",
     stats: [
-      { label: "Revenue Total", value: "$54,239" },
+      { label: "Total Revenue", value: "$54,239" },
       { label: "ROI Margin",    value: "34.2%"   },
       { label: "Q4 Target",     value: "86%"     },
-      { label: "AR Days",       value: "21 días" },
+      { label: "AR Days",       value: "21 days" },
     ],
   },
   casos: {
-    title: "Casos", subtitle: "Módulo KPI — Support Tickets",
+    title: "Cases", subtitle: "KPI Module — Support Tickets",
     color: "#3b82f6",
     stats: [
-      { label: "Casos Abiertos",   value: "213"  },
-      { label: "Escalados T2",     value: "3"    },
-      { label: "Tasa Resolución", value: "87%" },
-      { label: "SLA Breach",       value: "2%"   },
+      { label: "Open Cases",    value: "213"  },
+      { label: "T2 Escalated",  value: "3"    },
+      { label: "Resolution Rate", value: "87%" },
+      { label: "SLA Breach",    value: "2%"   },
     ],
   },
   actividades: {
-    title: "Actividades", subtitle: "Módulo KPI — Sprint Velocity",
-    color: "#8b5cf6",
+    title: "Activities", subtitle: "KPI Module — Sprint Velocity",
+    color: "#475569",
     stats: [
-      { label: "Velocidad Sprint", value: "34 SP"    },
-      { label: "Tareas Done",      value: "127"      },
-      { label: "Backlog",          value: "48 items" },
-      { label: "Bloqueadas",       value: "5"        },
+      { label: "Sprint Velocity", value: "34 SP"    },
+      { label: "Completed Tasks", value: "127"      },
+      { label: "Backlog Items",   value: "48 items" },
+      { label: "Blocked",         value: "5"        },
     ],
   },
   ledger: {
-    title: "Ledger", subtitle: "Módulo KPI — Financial Balance",
-    color: "#f59e0b",
+    title: "Ledger", subtitle: "KPI Module — Financial Balance",
+    color: "#1d4ed8",
     stats: [
-      { label: "Saldo Neto",   value: "$125.5K"  },
-      { label: "AP Pendiente", value: "$18.2K"   },
-      { label: "Cash Flow",    value: "+$6.4K"   },
-      { label: "Burn Rate",    value: "$22K/mo"  },
+      { label: "Net Balance",    value: "$125.5K"  },
+      { label: "Pending AP",     value: "$18.2K"   },
+      { label: "Cash Flow",      value: "+$6.4K"   },
+      { label: "Burn Rate",      value: "$22K/mo"  },
     ],
   },
   voz: {
-    title: "Voz", subtitle: "Módulo KPI — NLP Engine",
-    color: "#06b6d4",
+    title: "Voice", subtitle: "KPI Module — NLP Engine",
+    color: "#0ea5e9",
     stats: [
-      { label: "Precisión",   value: "94%"   },
-      { label: "Comandos/hr",      value: "142"   },
-      { label: "Latencia",         value: "180ms" },
-      { label: "Eventos Veto",     value: "0"     },
+      { label: "Accuracy",       value: "94%"   },
+      { label: "Commands/hr",    value: "142"   },
+      { label: "Latency",        value: "180ms" },
+      { label: "Veto Events",    value: "0"     },
     ],
   },
   finanzas: {
-    title: "Finanzas", subtitle: "Departamento — Finance",
-    color: "#fbbf24",
+    title: "Finance", subtitle: "Department — Finance",
+    color: "#0f172a",
     stats: [
-      { label: "Presupuesto", value: "$2.4M"    },
-      { label: "Equipo",      value: "18 pers." },
-      { label: "ROI",         value: "28.4%"    },
-      { label: "Gasto YTD",   value: "$1.1M"    },
+      { label: "Budget",         value: "$2.4M"    },
+      { label: "Team Size",      value: "18 members" },
+      { label: "ROI Margin",     value: "28.4%"    },
+      { label: "YTD Spend",      value: "$1.1M"    },
     ],
   },
   operaciones: {
-    title: "Operaciones", subtitle: "Departamento — Operations",
-    color: "#f87171",
+    title: "Operations", subtitle: "Department — Operations",
+    color: "#64748b",
     stats: [
-      { label: "Eficiencia", value: "94%"        },
-      { label: "Equipo",     value: "34 pers."   },
-      { label: "Proyectos",  value: "12 activos" },
-      { label: "On-time",    value: "88%"        },
+      { label: "Efficiency",     value: "94%"        },
+      { label: "Team Size",      value: "34 members" },
+      { label: "Projects",       value: "12 active"  },
+      { label: "On-time Rate",   value: "88%"        },
     ],
   },
   analytics: {
-    title: "Analytics", subtitle: "Departamento — Data & Insights",
-    color: "#a78bfa",
+    title: "Analytics", subtitle: "Department — Data & Insights",
+    color: "#1e40af",
     stats: [
-      { label: "Insights/mes",  value: "142"      },
-      { label: "Equipo",        value: "12 pers." },
-      { label: "Dashboards",    value: "38"       },
-      { label: "Data Accuracy", value: "99.2%"    },
+      { label: "Monthly Insights", value: "142"      },
+      { label: "Team Size",        value: "12 members" },
+      { label: "Dashboards",       value: "38"       },
+      { label: "Data Accuracy",    value: "99.2%"    },
     ],
   },
   tecnologia: {
-    title: "Tecnología", subtitle: "Departamento — Engineering",
-    color: "#38bdf8",
+    title: "Technology", subtitle: "Department — Engineering",
+    color: "#0284c7",
     stats: [
-      { label: "Uptime",       value: "99.8%"    },
-      { label: "Equipo",       value: "28 pers." },
-      { label: "Incidentes",   value: "2 activos" },
-      { label: "Deploys/sem",  value: "14"       },
+      { label: "System Uptime",  value: "99.8%"    },
+      { label: "Team Size",      value: "28 members" },
+      { label: "Incidents",      value: "2 active"  },
+      { label: "Weekly Deploys", value: "14"       },
     ],
   },
   legal: {
-    title: "Legal", subtitle: "Departamento — Legal & Compliance",
-    color: "#fb923c",
+    title: "Legal", subtitle: "Department — Legal & Compliance",
+    color: "#334155",
     stats: [
-      { label: "Compliance",  value: "100%"       },
-      { label: "Equipo",      value: "8 pers."    },
-      { label: "Contratos",   value: "47 activos" },
-      { label: "Auditorías", value: "3 pend." },
+      { label: "Compliance Rate", value: "100%"       },
+      { label: "Team Size",       value: "8 members"   },
+      { label: "Active Contracts", value: "47 active" },
+      { label: "Pending Audits",  value: "3 pending" },
     ],
   },
   ventas: {
-    title: "Ventas", subtitle: "Departamento — Sales",
-    color: "#f472b6",
+    title: "Sales", subtitle: "Department — Sales",
+    color: "#38bdf8",
     stats: [
-      { label: "Pipeline",    value: "$890K"    },
-      { label: "Equipo",      value: "45 pers." },
-      { label: "Conv. Rate",  value: "23.5%"    },
-      { label: "Deals/mes",   value: "34"       },
+      { label: "Pipeline Value", value: "$890K"    },
+      { label: "Team Size",      value: "45 members" },
+      { label: "Conv. Rate",     value: "23.5%"    },
+      { label: "Monthly Deals",  value: "34"       },
     ],
   },
 };
 
 const NODE_ABBR: Record<string, string> = {
-  core: "ARLO", facturacion: "FACT", casos: "CASO", actividades: "ACTI",
-  ledger: "LEDG", voz: "VOZ", finanzas: "FINA", operaciones: "OPER",
-  analytics: "ANAL", tecnologia: "TECH", legal: "LEGA", ventas: "VENT",
+  core: "ARLO", facturacion: "BILL", casos: "CASE", actividades: "ACTI",
+  ledger: "LEDG", voz: "VOIC", finanzas: "FINA", operaciones: "OPER",
+  analytics: "ANAL", tecnologia: "TECH", legal: "LEGA", ventas: "SALE",
 };
 
 interface Props {
@@ -251,7 +251,7 @@ export function NodeMapInteractive({
     const rawTy = node.cy - node.r - TH - 16;
     const tx = Math.min(Math.max(rawTx, 2), SVG_W - TW - 2);
     const ty = rawTy < 2 ? node.cy + node.r + 10 : rawTy;
-    const confColor = conf !== undefined ? (conf >= 94 ? "#2563eb" : "#ef4444") : "#7a9a8d";
+    const confColor = conf !== undefined ? (conf >= 94 ? "#2563eb" : "#ef4444") : "#475569";
 
     return (
       <g style={{ pointerEvents: "none" }}>
@@ -260,7 +260,7 @@ export function NodeMapInteractive({
           fill="rgba(0,0,0,0.08)" />
         {/* Panel */}
         <rect x={tx} y={ty} width={TW} height={TH} rx={8}
-          fill={lightMode ? "rgba(244, 248, 253, 0.95)" : "rgba(5,22,17,0.96)"}
+          fill={lightMode ? "rgba(244, 248, 253, 0.95)" : "rgba(15, 23, 42, 0.96)"}
           stroke={node.color} strokeWidth={1} />
         {/* Left accent */}
         <rect x={tx} y={ty} width={3} height={TH} rx={2}
@@ -273,13 +273,13 @@ export function NodeMapInteractive({
         </text>
         <text x={tx+TW-10} y={ty+15} fontSize={7} fontWeight="700"
           textAnchor="end"
-          fill={lightMode ? "#475569" : "#7a9a8d"}
+          fill={lightMode ? "#475569" : "#94a3b8"}
           style={{ fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>
           BC {(bc * 100).toFixed(0)}%
         </text>
         {/* Formula */}
         <text x={tx+10} y={ty+29} fontSize={6.4}
-          fill={lightMode ? "#64748b" : "#a0c4b8"}
+          fill={lightMode ? "#64748b" : "#94a3b8"}
           style={{ fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>
           {formula}
         </text>
@@ -289,7 +289,7 @@ export function NodeMapInteractive({
             <text x={tx+10} y={ty+44} fontSize={6} fontWeight="600"
               fill={confColor}
               style={{ fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>
-              Conf: {conf}%{conf < 94 ? "  ⚠ VETO" : "  ✓ OK"}
+              Conf: {conf}% {conf < 94 ? "  ⚠ VETO" : "  ✓ OK"}
             </text>
             {/* mini confidence bar */}
             <rect x={tx+10} y={ty+48} width={TW-20} height={3} rx={1.5}
@@ -487,7 +487,7 @@ export function NodeMapInteractive({
               <text x={node.cx} y={node.cy + node.r + 12}
                 textAnchor="middle" fontSize={7}
                 fill={lightMode
-                  ? (isSel || isConn ? "#1e3a8a" : "#7a9a8d")
+                  ? (isSel || isConn ? "#1e3a8a" : "#475569")
                   : (isSel || isConn ? "rgba(255,255,255,0.92)" : "rgba(56,189,248,0.55)")}
                 style={{ fontFamily: "'Segoe UI', -apple-system, sans-serif", pointerEvents: "none",
                   userSelect: "none", fontWeight: isSel ? "700" : "400", transition: "fill 0.25s" }}>
@@ -517,7 +517,7 @@ export function NodeMapInteractive({
           <motion.div
             className="absolute bottom-0 left-0 right-0 flex items-center justify-center py-2.5"
             style={{
-              background: lightMode ? "rgba(244, 248, 253, 0.92)" : "rgba(12,19,41,0.85)",
+              background: lightMode ? "rgba(244, 248, 253, 0.92)" : "rgba(15, 23, 42, 0.85)",
               backdropFilter: "blur(6px)",
               borderTop: lightMode ? "1px solid rgba(165, 185, 210, 0.2)" : "1px solid rgba(37,99,235,0.1)",
             }}
@@ -525,7 +525,7 @@ export function NodeMapInteractive({
           >
             <span className="text-[10px] uppercase tracking-[0.2em]"
               style={{ color: lightMode ? "#475569" : "#3b82f6", fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>
-              Hover para fórmula · Clic para explorar · {ALL_NODES.length} nodos · {CONNECTIONS.length} conexiones
+              Hover to view formula · Click to explore · {ALL_NODES.length} nodes · {CONNECTIONS.length} connections
             </span>
           </motion.div>
         )}
@@ -537,7 +537,7 @@ export function NodeMapInteractive({
           <motion.div
             className="absolute bottom-0 left-0 right-0 z-20"
             style={{
-              background: lightMode ? "rgba(244, 248, 253, 0.98)" : "rgba(5,22,17,0.97)",
+              background: lightMode ? "rgba(244, 248, 253, 0.98)" : "rgba(15, 23, 42, 0.97)",
               backdropFilter: "blur(18px)",
               borderTop: `2px solid ${selectedNode.color}55`,
             }}
@@ -549,7 +549,7 @@ export function NodeMapInteractive({
           >
             <div className="flex justify-center pt-2 pb-0.5">
               <div className="w-7 h-1 rounded-full"
-                style={{ background: lightMode ? "rgba(165,185,210,0.5)" : "rgba(0,153,112,0.3)" }} />
+                style={{ background: lightMode ? "rgba(165,185,210,0.5)" : "rgba(37,99,235,0.3)" }} />
             </div>
 
             <div className="px-5 pb-4 pt-2">
@@ -566,15 +566,15 @@ export function NodeMapInteractive({
                   </div>
                   <div>
                     <p className="text-sm font-extrabold leading-none mb-0.5"
-                      style={{ color: lightMode ? "#0f172a" : "#ffffff" }}>
+                       style={{ color: lightMode ? "#0f172a" : "#ffffff" }}>
                       {selectedInfo.title}
                     </p>
                     <p className="text-[10px]"
-                      style={{ color: lightMode ? "#475569" : "#4a7268", fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>
+                      style={{ color: lightMode ? "#475569" : "#94a3b8", fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>
                       {selectedInfo.subtitle}
                       {CONFIDENCE[selectedId] !== undefined && (
                         <span style={{
-                          color: CONFIDENCE[selectedId] >= 94 ? "#009970" : "#ef4444",
+                          color: CONFIDENCE[selectedId] >= 94 ? "#2563eb" : "#ef4444",
                           marginLeft: 6, fontWeight: 700,
                         }}>
                           · {CONFIDENCE[selectedId]}% conf.
@@ -609,12 +609,12 @@ export function NodeMapInteractive({
                       }}
                       whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                     >
-                      Expandir
+                      Expand
                     </motion.button>
                   )}
                   <motion.button onClick={() => setSelectedId(null)}
                     className="p-1.5 rounded-lg"
-                    style={{ color: lightMode ? "#475569" : "#4a7268" }}
+                    style={{ color: lightMode ? "#475569" : "#94a3b8" }}
                     whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
                     <X className="w-3.5 h-3.5" />
                   </motion.button>
@@ -632,7 +632,7 @@ export function NodeMapInteractive({
                     initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: idx * 0.06 }}>
                     <p className="text-[9px] mb-1 leading-none"
-                      style={{ color: lightMode ? "#64748b" : "#7a9a8d", fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>
+                      style={{ color: lightMode ? "#64748b" : "#94a3b8", fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>
                       {stat.label}
                     </p>
                     <p className="text-[13px] font-extrabold leading-none"
@@ -650,8 +650,8 @@ export function NodeMapInteractive({
                     border: lightMode ? "1px solid rgba(37,99,235,0.12)" : `1px solid ${selectedNode.color}20`,
                   }}>
                   <span className="text-[8px] uppercase tracking-widest mr-3"
-                    style={{ color: lightMode ? "#64748b" : "#7a9a8d" }}>
-                    Fórmula
+                    style={{ color: lightMode ? "#64748b" : "#94a3b8" }}>
+                    Formula
                   </span>
                   <code className="text-[10px]"
                     style={{ color: selectedNode.color, fontFamily: "'Segoe UI', -apple-system, sans-serif" }}>

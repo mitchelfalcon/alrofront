@@ -10,14 +10,7 @@ export function SyncAlertsCard() {
 
   return (
     <div
-      className="p-5 rounded-3xl relative overflow-hidden"
-      style={{
-        background: "rgba(240, 246, 255, 0.48)",
-        backdropFilter: "blur(24px)",
-        WebkitBackdropFilter: "blur(24px)",
-        border: "1px solid rgba(255, 255, 255, 0.7)",
-        boxShadow: "14px 14px 32px rgba(150, 175, 205, 0.32), -14px -14px 32px rgba(255, 255, 255, 0.95), inset 3px 3px 6px rgba(255, 255, 255, 0.8), inset -3px -3px 6px rgba(150, 175, 205, 0.15)",
-      }}
+      className="p-5 rounded-3xl relative overflow-hidden glass-neo-card"
     >
       {/* Decorative background star/sparkle vector in the lower right corner */}
       <div className="absolute bottom-[-16px] right-[-16px] w-24 h-24 pointer-events-none opacity-[0.06] transform rotate-12">

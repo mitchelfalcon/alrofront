@@ -33,40 +33,39 @@ export function SpendingTrendCard() {
 
   return (
     <motion.div
-      className="p-6 bg-[#e2ede9] rounded-3xl shadow-[12px_12px_24px_#bdc9c4,-12px_-12px_24px_#ffffff] border-shimmer"
+      className="p-6 rounded-3xl glass-neo-card"
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.55 }}
-      whileHover={{ scale: 1.02, boxShadow: "0 10px 30px rgba(37, 99, 235, 0.2)" }}
+      whileHover={{ scale: 1.01 }}
     >
       <div className="flex items-start justify-between mb-6">
         <div>
-          <p className="text-[#7a9a8d] text-xs font-medium uppercase tracking-wider mb-1">
+          <p className="text-[#5b7290] text-xs font-semibold uppercase tracking-wider mb-1">
             Spending Trend
           </p>
           <h3 className="text-[#1e3a8a] text-xl font-bold">Annual Overview</h3>
         </div>
         <motion.button
-          className="p-2 bg-[#e2ede9] rounded-xl shadow-[4px_4px_8px_#bdc9c4,-4px_-4px_8px_#ffffff]"
-          whileHover={{ scale: 1.1, boxShadow: "6px 6px 12px #bdc9c4, -6px -6px 12px #ffffff" }}
-          whileTap={{ boxShadow: "inset 3px 3px 6px #bdc9c4, inset -3px -3px 6px #ffffff" }}
+          className="p-2 rounded-xl glass-neo-inset"
+          whileHover={{ scale: 1.1 }}
         >
           <MoreHorizontal className="w-4 h-4 text-[#2563eb]" />
         </motion.button>
       </div>
 
-      <div className="h-[260px] p-3 bg-[#e2ede9] rounded-2xl shadow-[inset_5px_5px_10px_#bdc9c4,inset_-5px_-5px_10px_#ffffff]">
+      <div className="h-[260px] p-3 rounded-2xl glass-neo-inset">
         <svg viewBox={`0 0 ${W} ${H}`} width="100%" height="100%" style={{ overflow: "visible" }}>
           {[0, 0.25, 0.5, 0.75, 1].map((t) => (
             <g key={`g${t}`}>
-              <line x1={PL} y1={PT + t * CH} x2={W - PR} y2={PT + t * CH} stroke="#bdc9c4" strokeWidth={0.5} opacity={0.35} />
-              <text x={PL - 4} y={PT + t * CH + 4} textAnchor="end" fontSize={7} fill="#7a9a8d">
+              <line x1={PL} y1={PT + t * CH} x2={W - PR} y2={PT + t * CH} stroke="#c5d5e8" strokeWidth={0.5} opacity={0.35} />
+              <text x={PL - 4} y={PT + t * CH + 4} textAnchor="end" fontSize={7} fill="#5b7290">
                 ${(VMAX - t * (VMAX - VMIN)).toFixed(0)}
               </text>
             </g>
           ))}
           {GPTS.filter((_, i) => i % 2 === 0).map((p, i) => (
-            <text key={`xl${i}`} x={p.x} y={H - 2} textAnchor="middle" fontSize={7} fill="#7a9a8d">
+            <text key={`xl${i}`} x={p.x} y={H - 2} textAnchor="middle" fontSize={7} fill="#5b7290">
               {p.name}
             </text>
           ))}
@@ -81,7 +80,7 @@ export function SpendingTrendCard() {
                     cx={p.x} cy={p.y}
                     r={isHighlight ? 6 : 4}
                     fill="#1e3a8a"
-                    stroke="#e2ede9"
+                    stroke="#f0f6ff"
                     strokeWidth={2}
                     style={{ cursor: "pointer" }}
                   />
@@ -95,7 +94,7 @@ export function SpendingTrendCard() {
                   <>
                     <rect x={p.x - 20} y={p.y - 26} width={40} height={16} rx={4} fill="#1e3a8a" />
                     <text x={p.x} y={p.y - 14} textAnchor="middle" fontSize={9} fill="#fff" fontWeight={600}>
-                      ${p.value}
+                       ${p.value}
                     </text>
                   </>
                 )}
@@ -107,19 +106,19 @@ export function SpendingTrendCard() {
 
       <div className="grid grid-cols-3 gap-3 mt-5">
         {[
-          { label: "Peak Month", value: "Oct", color: "#009970" },
-          { label: "Avg Monthly", value: "$5.1K", color: "#00c4a0" },
-          { label: "YoY Growth", value: "+28%", color: "#007a5e" },
+          { label: "Peak Month", value: "Oct", color: "#1e3a8a" },
+          { label: "Avg Monthly", value: "$5.1K", color: "#2563eb" },
+          { label: "YoY Growth", value: "+28%", color: "#0ea5e9" },
         ].map((s, i) => (
           <motion.div
             key={s.label}
-            className="p-3 bg-[#e2ede9] rounded-xl text-center shadow-[4px_4px_8px_#bdc9c4,-4px_-4px_8px_#ffffff]"
+            className="p-3 rounded-xl text-center glass-neo-inset"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7 + i * 0.1 }}
-            whileHover={{ scale: 1.05, boxShadow: "6px 6px 12px #bdc9c4, -6px -6px 12px #ffffff" }}
+            whileHover={{ scale: 1.05 }}
           >
-            <p className="text-[#7a9a8d] text-xs mb-1">{s.label}</p>
+            <p className="text-[#5b7290] text-xs mb-1">{s.label}</p>
             <p className="font-bold text-sm" style={{ color: s.color }}>{s.value}</p>
           </motion.div>
         ))}
